@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D5BU Portfolio</title>
+    <meta name="description"
+        content="A comprehensive portfolio demonstrating cybersecurity concepts, data structure algorithms, and web development skills.">
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body class="theme-dark">
+    <div id="app-container">
+        <!-- Sidebar Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img class="logo-icon" src="assets/custom-logo.png" style="background: none; box-shadow: none; object-fit: contain; padding: 2px;" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"/>
+                    <span class="logo-icon" style="display: none;">C</span>
+                    <span class="logo-text">D5BU<br>PORTFOLIO</span>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><button class="nav-btn active" data-target="resume">About / Resume</button></li>
+
+                <li class="nav-group">
+                    <button class="nav-group-title btn-collapse">
+                        <span>Learning</span>
+                        <span class="icon-collapse">▶</span>
+                    </button>
+                    <ul class="nav-group-content">
+                        <li class="nav-group nested">
+                            <button class="nav-group-title btn-collapse">
+                                <span>Sorting Algorithms</span>
+                                <span class="icon-collapse">▶</span>
+                            </button>
+                            <ul class="nav-group-content">
+                                <li><button class="nav-btn" data-target="bubble-sort">Bubble Sort</button></li>
+                                <li><button class="nav-btn" data-target="selection-sort">Selection Sort</button></li>
+                                <li><button class="nav-btn" data-target="insertion-sort">Insertion Sort</button></li>
+                                <li><button class="nav-btn" data-target="merge-sort">Merge Sort</button></li>
+                                <li><button class="nav-btn" data-target="quick-sort">Quick Sort</button></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-group nested">
+                            <button class="nav-group-title btn-collapse">
+                                <span>Search Algorithms</span>
+                                <span class="icon-collapse">▶</span>
+                            </button>
+                            <ul class="nav-group-content">
+                                <li><button class="nav-btn" data-target="binary-search">Binary Search</button></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-group nested">
+                            <button class="nav-group-title btn-collapse">
+                                <span>Cybersecurity Concepts</span>
+                                <span class="icon-collapse">▶</span>
+                            </button>
+                            <ul class="nav-group-content">
+                                <li><button class="nav-btn" data-target="brute-force">Brute Force Demo</button></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-group nested">
+                            <button class="nav-group-title btn-collapse">
+                                <span>Computer Architecture</span>
+                                <span class="icon-collapse">▶</span>
+                            </button>
+                            <ul class="nav-group-content">
+                                <li><button class="nav-btn" data-target="logic-gates">Logic Gates Simulator</button>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li style="margin-top: 1rem;"><button class="nav-btn" data-target="settings">⚙ Settings &
+                        Themes</button></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="main-content">
+            <header class="topbar">
+                <h1 id="page-title">About Me & Resume</h1>
+            </header>
+
+            <section id="content-container">
+                <!-- Modules will be injected or toggled here -->
+            </section>
+        </main>
+    </div>
+
+    <!-- Application Logic -->
+    <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
