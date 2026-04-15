@@ -14,6 +14,12 @@ export default class Resume {
                         <div style="display: flex; flex-direction: column;">
                             <h2 class="panel-title" style="font-size: 1.8rem; margin-bottom: 0.2rem;">Shubham Waghmare</h2>
                             <span style="color: var(--text-accent); font-size: 1rem; font-weight: 500;">Cybersecurity Enthusiast & Developer</span>
+                            <div style="display: flex; gap: 0.6rem; margin-top: 0.8rem; flex-wrap: wrap; align-items: center;">
+                                <a href="mailto:demaji.zerofive@gmail.com" style="text-decoration: none; background: rgba(0,240,255,0.1); color: var(--text-primary); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(0,240,255,0.3); font-size: 0.8rem; transition: 0.3s;" onmouseover="this.style.background='rgba(0,240,255,0.2)'" onmouseout="this.style.background='rgba(0,240,255,0.1)'">📧 demaji.zerofive@gmail.com</a>
+                                <a href="tel:+918956313168" style="text-decoration: none; background: rgba(0,240,255,0.1); color: var(--text-primary); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(0,240,255,0.3); font-size: 0.8rem; transition: 0.3s;" onmouseover="this.style.background='rgba(0,240,255,0.2)'" onmouseout="this.style.background='rgba(0,240,255,0.1)'">📞 +91 8956313168</a>
+                                <a href="tel:+917776917051" style="text-decoration: none; background: rgba(0,240,255,0.1); color: var(--text-primary); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(0,240,255,0.3); font-size: 0.8rem; transition: 0.3s;" onmouseover="this.style.background='rgba(0,240,255,0.2)'" onmouseout="this.style.background='rgba(0,240,255,0.1)'">📞 +91 7776917051</a>
+                                <a href="https://github.com/D5BU" target="_blank" style="text-decoration: none; background: rgba(255,255,255,0.1); color: var(--text-primary); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); font-size: 0.8rem; transition: 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">⬛ GitHub // D5BU</a>
+                            </div>
                         </div>
                     </div>
                     <div class="text-secondary" style="font-size: 1.05rem; line-height: 1.7; display: flex; flex-direction: column; gap: 1rem; border-left: 3px solid var(--text-accent); padding-left: 1.5rem; margin-top: 1rem;">
