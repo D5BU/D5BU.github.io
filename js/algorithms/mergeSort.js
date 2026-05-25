@@ -1,4 +1,4 @@
-export async function mergeSort(ctx) {
+window.mergeSort = async function(ctx) {
     let arr = ctx.array;
     let n = arr.length;
 

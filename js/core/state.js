@@ -41,13 +41,13 @@ class Store {
 // Detect System Preference
 const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-// Global Application State
-export const appState = new Store({
+const appState = new Store({
     activeModule: 'resume', // default module
     themeMode: prefersDark ? 'dark' : 'light',
     customAccent: null,
     customDanger: null
 });
+window.appState = appState;
 
 // Setup Initial Theme Logic
 const applyTheme = () => {

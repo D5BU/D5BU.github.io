@@ -1,4 +1,4 @@
-export async function quickSort(ctx) {
+window.quickSort = async function(ctx) {
     let arr = ctx.array;
     let n = arr.length;
 

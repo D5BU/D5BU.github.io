@@ -1,4 +1,4 @@
-export async function insertionSort(ctx) {
+window.insertionSort = async function(ctx) {
     let arr = ctx.array;
     let n = arr.length;
 

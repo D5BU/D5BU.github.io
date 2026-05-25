@@ -1,4 +1,4 @@
-export async function bubbleSort(ctx) {
+window.bubbleSort = async function(ctx) {
     let arr = ctx.array;
     let n = arr.length;
     

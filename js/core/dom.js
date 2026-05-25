@@ -3,7 +3,7 @@
  * Provides functions to cleanly interact with DOM elements and minimize reflows.
  */
 
-export const DOM = {
+window.DOM = {
     /**
      * Get an element by ID or selector
      */

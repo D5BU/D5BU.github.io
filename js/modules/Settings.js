@@ -1,7 +1,4 @@
-import { appState } from '../core/state.js';
-import { DOM } from '../core/dom.js';
-
-export default class Settings {
+class Settings {
     render() {
         return DOM.create(`
             <div class="module-section gap-lg">
@@ -106,3 +103,4 @@ export default class Settings {
         }
     }
 }
+window.Settings = Settings;

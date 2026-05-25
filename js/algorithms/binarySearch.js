@@ -1,8 +1,8 @@
-export async function binarySearch(ctx) {
+window.binarySearch = async function(ctx) {
     let arr = ctx.array;
     let n = arr.length;
     
-    // Sort silently
+    
     arr.sort((a, b) => a - b);
     for(let i=0; i<n; i++) ctx.updateHeight(i, arr[i]);
     
@@ -17,7 +17,7 @@ export async function binarySearch(ctx) {
     let high = n - 1;
 
     while (low <= high) {
-        // Highlight active entire search bounds
+       
         ctx.clearMarks();
         for(let i=low; i<=high; i++) {
             ctx.markSearchActive(i);

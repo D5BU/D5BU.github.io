@@ -2,106 +2,580 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D5BU Portfolio</title>
+    <title>Shubham Waghmare | Portfolio</title>
     <meta name="description"
-        content="A comprehensive portfolio demonstrating cybersecurity concepts, data structure algorithms, and web development skills.">
-    <!-- Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap"
-        rel="stylesheet">
+        content="Cybersecurity  & Developer Portfolio demonstrating web engineering, AWS cloud computing, and interactive algorithms.">
+    <!-- Preconnect to Font domains -->
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts fallbacks (Space Grotesk & Plus Jakarta Sans) -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/components.css">
+    
+    <!-- Local file error reporter -->
+    <script>
+        window.addEventListener('error', function(e) {
+            console.error("Diagnostic error caught:", e);
+            var panel = document.getElementById('diagnostic-error-panel');
+            if (!panel) {
+                panel = document.createElement('div');
+                panel.id = 'diagnostic-error-panel';
+                panel.style.cssText = 'position:fixed; bottom:20px; right:20px; max-width:450px; background:#0b0b0c; border:1px solid #eb5939; border-left:4px solid #eb5939; color:#e2e2e8; padding:20px; font-family:"Fira Code", monospace; font-size:12px; z-index:999999; box-shadow:0 10px 30px rgba(0,0,0,0.5); border-radius:4px;';
+                panel.innerHTML = '<div style="font-weight:bold; color:#eb5939; margin-bottom:10px; text-transform:uppercase; font-size:13px; display:flex; justify-content:between; align-items:center;"><span>⚠️ Console Error Detected</span><button onclick="this.parentElement.parentElement.remove()" style="background:none; border:none; color:#9090a0; cursor:pointer; font-family:inherit; font-size:11px;">[CLOSE]</button></div><div style="font-size:11px; color:#9090a0; margin-bottom:10px; line-height:1.4;">If you are loading this page via file:// protocol directly from disk, make sure you cleared your browser cache (Ctrl+F5) to apply changes.</div><div id="diag-errors-list" style="max-height:200px; overflow-y:auto; display:flex; flex-direction:column; gap:8px;"></div>';
+                document.body.appendChild(panel);
+            }
+            var list = document.getElementById('diag-errors-list');
+            var item = document.createElement('div');
+            item.style.cssText = 'background:#121214; border:1px solid rgba(255,255,255,0.05); padding:8px; border-radius:2px; word-break:break-all; line-height:1.4;';
+            item.innerHTML = '<span style="color:#eb5939;">' + (e.message || 'Script Load Failure') + '</span><br><span style="color:#9090a0; font-size:10px;">at ' + (e.filename ? e.filename.split('/').pop() : 'unknown') + ':' + (e.lineno || '0') + '</span>';
+            list.appendChild(item);
+        });
+    </script>
 </head>
 
-<body class="theme-dark">
-    <div id="app-container">
-        <!-- Sidebar Navigation -->
-        <nav id="sidebar" class="sidebar">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <img class="logo-icon" src="assets/custom-logo.png" style="background: none; box-shadow: none; object-fit: contain; padding: 2px;" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"/>
-                    <span class="logo-icon" style="display: none;">C</span>
-                    <span class="logo-text">D5BU<br>PORTFOLIO</span>
-                </div>
-            </div>
-            <ul class="nav-links">
-                <li><button class="nav-btn active" data-target="resume">About / Resume</button></li>
+<body>
+    <!-- Grain Noise Texture Overlay -->
+    <div class="noise-overlay"></div>
 
-                <li class="nav-group">
-                    <button class="nav-group-title btn-collapse">
-                        <span>Learning</span>
-                        <span class="icon-collapse">▶</span>
-                    </button>
-                    <ul class="nav-group-content">
-                        <li class="nav-group nested">
-                            <button class="nav-group-title btn-collapse">
-                                <span>Sorting Algorithms</span>
-                                <span class="icon-collapse">▶</span>
-                            </button>
-                            <ul class="nav-group-content">
-                                <li><button class="nav-btn" data-target="bubble-sort">Bubble Sort</button></li>
-                                <li><button class="nav-btn" data-target="selection-sort">Selection Sort</button></li>
-                                <li><button class="nav-btn" data-target="insertion-sort">Insertion Sort</button></li>
-                                <li><button class="nav-btn" data-target="merge-sort">Merge Sort</button></li>
-                                <li><button class="nav-btn" data-target="quick-sort">Quick Sort</button></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-group nested">
-                            <button class="nav-group-title btn-collapse">
-                                <span>Search Algorithms</span>
-                                <span class="icon-collapse">▶</span>
-                            </button>
-                            <ul class="nav-group-content">
-                                <li><button class="nav-btn" data-target="binary-search">Binary Search</button></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-group nested">
-                            <button class="nav-group-title btn-collapse">
-                                <span>Cybersecurity Concepts</span>
-                                <span class="icon-collapse">▶</span>
-                            </button>
-                            <ul class="nav-group-content">
-                                <li><button class="nav-btn" data-target="brute-force">Brute Force Demo</button></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-group nested">
-                            <button class="nav-group-title btn-collapse">
-                                <span>Computer Architecture</span>
-                                <span class="icon-collapse">▶</span>
-                            </button>
-                            <ul class="nav-group-content">
-                                <li><button class="nav-btn" data-target="logic-gates">Logic Gates Simulator</button>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-
-                <li style="margin-top: 1rem;"><button class="nav-btn" data-target="settings">⚙ Settings &
-                        Themes</button></li>
-            </ul>
-        </nav>
-
-        <!-- Main Content Area -->
-        <main id="main-content" class="main-content">
-            <header class="topbar">
-                <h1 id="page-title">About Me & Resume</h1>
-            </header>
-
-            <section id="content-container">
-                <!-- Modules will be injected or toggled here -->
-            </section>
-        </main>
+    <!-- Soft Radial Glow Backgrounds -->
+    <div class="bg-glows">
+        <div class="radial-glow glow-1"></div>
+        <div class="radial-glow glow-2"></div>
     </div>
 
-    <!-- Application Logic -->
-    <script type="module" src="js/app.js"></script>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
+    <!-- Sticky Navigation Top Bar -->
+    <header class="top-nav" id="top-nav">
+        <div class="container nav-container">
+            <a href="#" class="logo-link magnetic" id="nav-logo">
+                D5BU.
+            </a>
+            <nav class="nav-links-right">
+                <a href="#about" class="nav-item-link underline-link magnetic">About</a>
+                <a href="#portfolio" class="nav-item-link underline-link magnetic">Portfolio</a>
+                <a href="#labs" class="nav-item-link underline-link magnetic">Labs</a>
+                <a href="#arsenal" class="nav-item-link underline-link magnetic">Arsenal</a>
+                <a href="#process" class="nav-item-link underline-link magnetic">Process</a>
+                <button class="btn-pill magnetic" id="btn-letstalk-nav">Let's Talk</button>
+            </nav>
+            <button class="hamburger" id="hamburger-btn" aria-label="Toggle Navigation Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Slide-In Fullscreen Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-links">
+            <a href="#about" class="magnetic" id="mobile-link-about">About</a>
+            <a href="#portfolio" class="magnetic" id="mobile-link-portfolio">Portfolio</a>
+            <a href="#labs" class="magnetic" id="mobile-link-labs">Labs</a>
+            <a href="#arsenal" class="magnetic" id="mobile-link-arsenal">Arsenal</a>
+            <a href="#process" class="magnetic" id="mobile-link-process">Process</a>
+            <a href="#contact" class="magnetic" id="mobile-link-contact">Let's Talk</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="about" class="hero-section">
+        <div class="container hero-layout">
+            <div class="hero-left">
+                <div class="eyebrow-container reveal-item" style="transition-delay: 0.0s;">
+                    <div class="eyebrow-line"></div>
+                    <span class="eyebrow-text">Multidisciplinary</span>
+                </div>
+                <div class="line-mask-container">
+                    <h1 class="hero-title"><span id="hero-mask-1">SHUBHAM</span></h1>
+                </div>
+                <div class="line-mask-container">
+                    <h1 class="hero-title"><span id="hero-mask-2" class="hero-title-coral">WAGHMARE</span></h1>
+                </div>
+                <div class="hero-description reveal-item" style="transition-delay: 0.2s;">
+                    <p class="font-bold" style="color: var(--accent-taupe); font-size: 1.1rem; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;">
+                        Cloud & Information Security Engineer
+                    </p>
+                    <p style="margin-bottom: 16px;">
+                        I am a B.Tech graduate specializing in <strong>Cloud Technology & Information Security</strong> from Ajeenkya DY Patil University, Lohegaon. Driven by a deep curiosity to understand systems at their fundamental levels, my mindset is focused on building high-value solutions that deliver tangible impact, enhance security posture, and optimize operational efficiency for my employers.
+                    </p>
+                    <p style="margin-bottom: 16px;">
+                        Recently, I designed and automated a cloud resource auditing pipeline that pruned inactive AWS IAM roles and credentials, reducing our cloud risk surface by <strong>70%</strong> and securing a <strong>15%</strong> reduction in monthly infrastructure costs.
+                    </p>
+                    <p>
+                        Outside of engineering, my interests in gardening, space observation, and stargazing keep me grounded and connected to both micro and macro-level systems.
+                    </p>
+                    <div style="margin-top: 24px; display: flex; gap: 16px; align-items: center;">
+                        <a href="assets/shubham_waghmare_resume.pdf" download="Shubham_Waghmare_Resume.pdf" class="btn-pill magnetic" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span>Download CV</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-right reveal-item" style="transition-delay: 0.3s;">
+                <div class="spinning-badge-container">
+                    <!-- Spinning Text SVG Badge -->
+                    <svg class="spinning-svg" viewBox="0 0 200 200">
+                        <path id="badge-text-path" d="M 100, 100 m -70, 0 a 70,70 0 1,1 140,0 a 70,70 0 1,1 -140,0" fill="none" />
+                        <text>
+                            <textPath href="#badge-text-path" font-size="11.8px" letter-spacing="4.2">
+                                OPEN TO WORK • FREELANCE AVAILABLE • 
+                            </textPath>
+                        </text>
+                    </svg>
+                    <button class="badge-center-btn magnetic" id="badge-action-btn" aria-label="Explore Portfolio">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Infinite Marquee Section -->
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <!-- Text repeated twice to loop seamlessly -->
+            <div class="marquee-item">
+                <span class="highlight">Vulnerability Assessment</span> <span class="star-symbol">✦</span> 
+                AWS IAM Hardening <span class="star-symbol">✦</span> 
+                <span class="highlight">Packet Inspection</span> <span class="star-symbol">✦</span> 
+                Docker Container Security <span class="star-symbol">✦</span> 
+                <span class="highlight">Network Penetration Testing</span> <span class="star-symbol">✦</span> 
+                LSB Steganographic Hiding <span class="star-symbol">✦</span>
+                <span class="highlight">AWS VPC Topology Routing</span> <span class="star-symbol">✦</span> 
+                OWASP Top 10 Auditing <span class="star-symbol">✦</span> 
+                <span class="highlight">Linux System Hardening</span> <span class="star-symbol">✦</span>
+            </div>
+            <div class="marquee-item">
+                <span class="highlight">Vulnerability Assessment</span> <span class="star-symbol">✦</span> 
+                AWS IAM Hardening <span class="star-symbol">✦</span> 
+                <span class="highlight">Packet Inspection</span> <span class="star-symbol">✦</span> 
+                Docker Container Security <span class="star-symbol">✦</span> 
+                <span class="highlight">Network Penetration Testing</span> <span class="star-symbol">✦</span> 
+                LSB Steganographic Hiding <span class="star-symbol">✦</span>
+                <span class="highlight">AWS VPC Topology Routing</span> <span class="star-symbol">✦</span> 
+                OWASP Top 10 Auditing <span class="star-symbol">✦</span> 
+                <span class="highlight">Linux System Hardening</span> <span class="star-symbol">✦</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selected Work Section (Featured Projects) -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="section-header reveal-item">
+                <div>
+                    <span class="section-number">01 / Featured Projects</span>
+                    <h2 class="section-title">Selected Work</h2>
+                </div>
+            </div>
+
+            <div class="work-grid">
+                <!-- JusticeGPT -->
+                <div class="work-card reveal-item" style="transition-delay: 0.0s;">
+                    <div class="work-card-media">
+                        <img class="work-card-img" src="assets/justice-gpt.png" alt="JusticeGPT" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27 width%3D%27400%27 height%3D%27300%27 viewBox%3D%270 0 400 300%27%3E%3Crect width%3D%27100%25%27 height%3D%27100%25%27 fill%3D%27%231a1a1a%27%2F%3E%3Ctext x%3D%2750%25%27 y%3D%2750%25%27 dominant-baseline%3D%27middle%27 text-anchor%3D%27middle%27 fill%3D%27%23b7ab98%27 font-family%3D%27sans-serif%27 font-weight%3D%27bold%27 font-size%3D%2720%27%3EJusticeGPT AI%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                        <div class="card-overlay">
+                            <span class="btn-launch">Read Details</span>
+                        </div>
+                    </div>
+                    <div class="work-card-meta">
+                        <div>
+                            <div class="title-container" style="display: flex; align-items: center; gap: 8px;">
+                                <h3 class="work-card-title">JusticeGPT</h3>
+                                <a href="https://github.com/D5BU/JusticeGPT" target="_blank" rel="noopener noreferrer" class="github-card-link" onclick="event.stopPropagation();" aria-label="JusticeGPT GitHub Repository" style="color: var(--text-secondary); display: inline-flex; align-items: center; transition: color 0.3s;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="work-card-tags">AI / NLP Legal Assistant</div>
+                        </div>
+                        <span class="badge-tag">Featured</span>
+                    </div>
+                </div>
+
+                <!-- D5BU Shield -->
+                <div class="work-card reveal-item" style="transition-delay: 0.08s;">
+                    <div class="work-card-media">
+                        <img class="work-card-img" src="assets/d5bu-shield.png" alt="D5BU Shield" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27 width%3D%27400%27 height%3D%27300%27 viewBox%3D%270 0 400 300%27%3E%3Crect width%3D%27100%25%27 height%3D%27100%25%27 fill%3D%27%231a1a1a%27%2F%3E%3Ctext x%3D%2750%25%27 y%3D%2750%25%27 dominant-baseline%3D%27middle%27 text-anchor%3D%27middle%27 fill%3D%27%23eb5939%27 font-family%3D%27sans-serif%27 font-weight%3D%27bold%27 font-size%3D%2720%27%3ED5BU Shield%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                        <div class="card-overlay">
+                            <span class="btn-launch">Read Details</span>
+                        </div>
+                    </div>
+                    <div class="work-card-meta">
+                        <div>
+                            <div class="title-container" style="display: flex; align-items: center; gap: 8px;">
+                                <h3 class="work-card-title">D5BU Shield</h3>
+                                <a href="https://github.com/D5BU/D5BU-Shield" target="_blank" rel="noopener noreferrer" class="github-card-link" onclick="event.stopPropagation();" aria-label="D5BU Shield GitHub Repository" style="color: var(--text-secondary); display: inline-flex; align-items: center; transition: color 0.3s;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="work-card-tags">Cybersecurity Dashboard</div>
+                        </div>
+                        <span class="badge-tag">Network Scanning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learn & Visualize (Interactive Labs) -->
+    <section id="labs">
+        <div class="container">
+            <div class="section-header reveal-item">
+                <div>
+                    <span class="section-number">02 / Learn & Visualize</span>
+                    <h2 class="section-title">Interactive Labs</h2>
+                </div>
+            </div>
+
+            <div class="labs-grid">
+                <!-- Sorting Visualizer -->
+                <div class="work-card reveal-item" id="card-sorting-visualizer" style="transition-delay: 0.0s;">
+                    <div class="work-card-media">
+                        <img class="work-card-img" src="assets/sorting-visualizer.png" alt="Sorting Visualizer" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27 width%3D%27400%27 height%3D%27300%27 viewBox%3D%270 0 400 300%27%3E%3Crect width%3D%27100%25%27 height%3D%27100%25%27 fill%3D%27%231a1a1a%27%2F%3E%3Ctext x%3D%2750%25%27 y%3D%2750%25%27 dominant-baseline%3D%27middle%27 text-anchor%3D%27middle%27 fill%3D%27%23b7ab98%27 font-family%3D%27sans-serif%27 font-weight%3D%27bold%27 font-size%3D%2720%27%3EAlgorithm Visualizer%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                        <div class="card-overlay">
+                            <span class="btn-launch">Launch Simulator</span>
+                        </div>
+                    </div>
+                    <div class="work-card-meta">
+                        <div>
+                            <h3 class="work-card-title">Sorting Visualizer</h3>
+                            <div class="work-card-tags">Interactive Sorting Algorithms</div>
+                        </div>
+                        <span class="badge-tag">Interactive Lab</span>
+                    </div>
+                </div>
+
+                <!-- Logic Gates Simulator -->
+                <div class="work-card reveal-item" id="card-logic-gates" style="transition-delay: 0.08s;">
+                    <div class="work-card-media">
+                        <img class="work-card-img" src="assets/logic-gates.png" alt="Logic Gates Simulator" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27 width%3D%27400%27 height%3D%27300%27 viewBox%3D%270 0 400 300%27%3E%3Crect width%3D%27100%25%27 height%3D%27100%25%27 fill%3D%27%231a1a1a%27%2F%3E%3Ctext x%3D%2750%25%27 y%3D%2750%25%27 dominant-baseline%3D%27middle%27 text-anchor%3D%27middle%27 fill%3D%27%23eb5939%27 font-family%3D%27sans-serif%27 font-weight%3D%27bold%27 font-size%3D%2720%27%3ELogic Gate Sim%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                        <div class="card-overlay">
+                            <span class="btn-launch">Launch Simulator</span>
+                        </div>
+                    </div>
+                    <div class="work-card-meta">
+                        <div>
+                            <h3 class="work-card-title">Logic Gate Simulator</h3>
+                            <div class="work-card-tags">Computer Architecture Simulator</div>
+                        </div>
+                        <span class="badge-tag">Interactive Lab</span>
+                    </div>
+                </div>
+
+                <!-- Brute Force Simulator -->
+                <div class="work-card reveal-item" id="card-brute-force" style="transition-delay: 0.16s;">
+                    <div class="work-card-media">
+                        <img class="work-card-img" src="assets/brute-force.png" alt="Brute Force Demo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27 width%3D%27400%27 height%3D%27300%27 viewBox%3D%270 0 400 300%27%3E%3Crect width%3D%27100%25%27 height%3D%27100%25%27 fill%3D%27%231a1a1a%27%2F%3E%3Ctext x%3D%2750%25%27 y%3D%2750%25%27 dominant-baseline%3D%27middle%27 text-anchor%3D%27middle%27 fill%3D%27%23eb5939%27 font-family%3D%27sans-serif%27 font-weight%3D%27bold%27 font-size%3D%2720%27%3EBrute Force Demo%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                        <div class="card-overlay">
+                            <span class="btn-launch">Launch Demo</span>
+                        </div>
+                    </div>
+                    <div class="work-card-meta">
+                        <div>
+                            <h3 class="work-card-title">Brute Force Demo</h3>
+                            <div class="work-card-tags">Cybersecurity Attack Vector Simulation</div>
+                        </div>
+                        <span class="badge-tag">Interactive Lab</span>
+                    </div>
+                </div>
+
+                <!-- OSI Model Simulator -->
+                <div class="work-card reveal-item" id="card-osi-model" style="transition-delay: 0.24s;">
+                    <div class="work-card-media">
+                        <img class="work-card-img" src="assets/osi-model.png" alt="OSI Model Simulator" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27 width%3D%27400%27 height%3D%27300%27 viewBox%3D%270 0 400 300%27%3E%3Crect width%3D%27100%25%27 height%3D%27100%25%27 fill%3D%27%231a1a1a%27%2F%3E%3Ctext x%3D%2750%25%27 y%3D%2750%25%27 dominant-baseline%3D%27middle%27 text-anchor%3D%27middle%27 fill%3D%27%23eb5939%27 font-family%3D%27sans-serif%27 font-weight%3D%27bold%27 font-size%3D%2720%27%3EOSI Model Sim%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                        <div class="card-overlay">
+                            <span class="btn-launch">Launch Simulator</span>
+                        </div>
+                    </div>
+                    <div class="work-card-meta">
+                        <div>
+                            <h3 class="work-card-title">OSI Model Simulator</h3>
+                            <div class="work-card-tags">Data Encapsulation & Protocol Flow</div>
+                        </div>
+                        <span class="badge-tag">Interactive Lab</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Technical Arsenal Section -->
+    <section id="arsenal">
+        <div class="container">
+            <div class="section-header reveal-item">
+                <div>
+                    <span class="section-number">03 / Skills & Core Knowledge</span>
+                    <h2 class="section-title">Technical Arsenal</h2>
+                </div>
+            </div>
+
+            <div class="services-container">
+                <!-- Row 1: Cloud & Infrastructure -->
+                <div class="service-row reveal-item" style="transition-delay: 0.0s;">
+                    <span class="service-num">01</span>
+                    <h3 class="service-title">Cloud & Infrastructure</h3>
+                    <div class="service-desc">
+                        AWS (EC2, VPC, IAM, S3), Cloud Architecture.
+                    </div>
+                    <div class="service-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </div>
+
+                <!-- Row 2: Systems & Networking -->
+                <div class="service-row reveal-item" style="transition-delay: 0.08s;">
+                    <span class="service-num">02</span>
+                    <h3 class="service-title">Systems & Networking</h3>
+                    <div class="service-desc">
+                        Linux, Networking Fundamentals, System Administration, DNS, TCP/IP.
+                    </div>
+                    <div class="service-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </div>
+
+                <!-- Row 3: Infrastructure as Code -->
+                <div class="service-row reveal-item" style="transition-delay: 0.16s;">
+                    <span class="service-num">03</span>
+                    <h3 class="service-title">Infrastructure as Code</h3>
+                    <div class="service-desc">
+                        Terraform, Infrastructure Automation, Provisioning.
+                    </div>
+                    <div class="service-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </div>
+
+                <!-- Row 4: Containers & Orchestration -->
+                <div class="service-row reveal-item" style="transition-delay: 0.24s;">
+                    <span class="service-num">04</span>
+                    <h3 class="service-title">Containers & Orchestration</h3>
+                    <div class="service-desc">
+                        Docker, Kubernetes, Container Security, Workloads.
+                    </div>
+                    <div class="service-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </div>
+
+                <!-- Row 5: DevOps & Automation -->
+                <div class="service-row reveal-item" style="transition-delay: 0.32s;">
+                    <span class="service-num">05</span>
+                    <h3 class="service-title">DevOps & Automation</h3>
+                    <div class="service-desc">
+                        CI/CD, GitOps, GitHub Actions, Deployment Pipelines.
+                    </div>
+                    <div class="service-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </div>
+
+                <!-- Row 6: Security -->
+                <div class="service-row reveal-item" style="transition-delay: 0.40s;">
+                    <span class="service-num">06</span>
+                    <h3 class="service-title">Security</h3>
+                    <div class="service-desc">
+                        Cloud Security Principles, IAM Security, Secure Deployments.
+                    </div>
+                    <div class="service-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Engineering Process Section -->
+    <section id="process">
+        <div class="container">
+            <div class="section-header reveal-item">
+                <div>
+                    <span class="section-number">04 / Methodological Approach</span>
+                    <h2 class="section-title">My Process</h2>
+                </div>
+            </div>
+
+            <div class="process-grid">
+                <!-- Step 1 -->
+                <div class="process-step reveal-item" style="transition-delay: 0.0s;">
+                    <div class="process-icon-wrapper">
+                        <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <span class="process-phase">Phase 01</span>
+                    <h3 class="process-heading">Deconstruct</h3>
+                    <p class="process-text">
+                        Breaking complex systems down into their micro-level components. Reading standards, specifications, and researching fundamentals to fully comprehend the system's architecture.
+                    </p>
+                    <div class="process-line"></div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="process-step reveal-item" style="transition-delay: 0.08s;">
+                    <div class="process-icon-wrapper">
+                        <svg viewBox="0 0 24 24"><path d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 009 11V5a2 2 0 00-2-2H4a2 2 0 00-2 2v6c0 3.517 1.009 6.799 2.753 9.571m15.502-2.04l-.054-.09A13.916 13.916 0 0115 11V5a2 2 0 012-2h3a2 2 0 012 2v6c0 3.517-1.009 6.799-2.753 9.571"/></svg>
+                    </div>
+                    <span class="process-phase">Phase 02</span>
+                    <h3 class="process-heading">Design</h3>
+                    <p class="process-text">
+                        Drafting secure logical patterns, network topologies, or code structures. Focusing on clean UI/UX flows and eliminating potential security threat vectors at compile time.
+                    </p>
+                    <div class="process-line"></div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="process-step reveal-item" style="transition-delay: 0.16s;">
+                    <div class="process-icon-wrapper">
+                        <svg viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    </div>
+                    <span class="process-phase">Phase 03</span>
+                    <h3 class="process-heading">Deploy</h3>
+                    <p class="process-text">
+                        Provisioning cloud infrastructure on AWS, organizing services inside Docker containers, and implementing automated deployments with proper IAM security boundaries.
+                    </p>
+                    <div class="process-line"></div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="process-step reveal-item" style="transition-delay: 0.24s;">
+                    <div class="process-icon-wrapper">
+                        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <span class="process-phase">Phase 04</span>
+                    <h3 class="process-heading">Harden</h3>
+                    <p class="process-text">
+                        Conducting network scanning, executing vulnerability audits, checking system limits, and hardening services to guarantee reliable and resilient production runs.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section & Contact Info -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-brand">
+                        D5BU<span>.</span>
+                    </div>
+                    <p class="footer-summary">
+                        Curiosity-driven portfolio of Shubham Waghmare. Deconstructing digital systems, hosting cloud workloads, and auditing network boundaries.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <span class="footer-title">Navigate</span>
+                    <div class="footer-links">
+                        <a href="#about" class="underline-link magnetic">About</a>
+                        <a href="#arsenal" class="underline-link magnetic">Arsenal</a>
+                        <a href="#portfolio" class="underline-link magnetic">Portfolio</a>
+                        <a href="#process" class="underline-link magnetic">Process</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <span class="footer-title">Connect</span>
+                    <div class="footer-links">
+                        <a href="https://github.com/D5BU" target="_blank" class="underline-link magnetic">GitHub / D5BU</a>
+                        <a href="https://www.linkedin.com/in/dfivebu" target="_blank" class="underline-link magnetic">LinkedIn</a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <span class="footer-title">Contact Info</span>
+                    <div class="footer-links">
+                        <div class="footer-info-item">
+                            <strong>Email</strong>
+                            <a href="mailto:daybuwaghmare@outlook.com" class="magnetic">daybuwaghmare@outlook.com</a>
+                        </div>
+                        <div class="footer-info-item">
+                            <strong>Mobile</strong>
+                            <a href="tel:+918956313168" class="magnetic">+91 8956313168</a>
+                            <a href="tel:+917776917051" class="magnetic" style="margin-top: 4px; display: block;">+91 7776917051</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2026 Shubham Waghmare. All rights reserved.
+                </div>
+                
+                <div class="social-icons-row">
+                    <a href="https://github.com/D5BU" target="_blank" class="social-icon-btn magnetic" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    </a>
+                </div>
+
+                <button class="btn-back-to-top" id="btn-back-to-top">
+                    Back to Top
+                    <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SIMULATORS MODAL OVERLAY -->
+    <div class="modal-overlay" id="app-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title-display">Simulator Lab</h2>
+                <button class="btn-close-modal magnetic" id="btn-modal-close" aria-label="Close Simulator">
+                    Close Lab
+                    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-content-mount">
+                <!-- Interactive modules injected dynamically by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Utilities & State -->
+    <script src="js/core/dom.js"></script>
+    <script src="js/core/state.js"></script>
+
+    <!-- Algorithms -->
+    <script src="js/algorithms/bubbleSort.js"></script>
+    <script src="js/algorithms/selectionSort.js"></script>
+    <script src="js/algorithms/insertionSort.js"></script>
+    <script src="js/algorithms/mergeSort.js"></script>
+    <script src="js/algorithms/quickSort.js"></script>
+    <script src="js/algorithms/binarySearch.js"></script>
+
+    <!-- Modules -->
+    <script src="js/modules/SortingVisualizer.js"></script>
+    <script src="js/modules/LogicGates.js"></script>
+    <script src="js/modules/BruteForceDemo.js"></script>
+    <script src="js/modules/OsiModel.js"></script>
+    <script src="js/modules/Settings.js"></script>
+
+    <!-- Application Controller Logic -->
+    <script src="js/app.js"></script>
 </body>
 
 </html>

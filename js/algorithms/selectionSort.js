@@ -1,4 +1,4 @@
-export async function selectionSort(ctx) {
+window.selectionSort = async function(ctx) {
     let arr = ctx.array;
     let n = arr.length;
     
