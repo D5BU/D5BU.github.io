@@ -153,6 +153,14 @@ h1, h2, h3, h4, h5, h6 {
     height: 4px;
 }
 
+/* Disable custom cursor on devices without hover support / touch screens */
+@media (hover: none) and (pointer: coarse) {
+    .cursor-dot,
+    .cursor-ring {
+        display: none !important;
+    }
+}
+
 /* --- UNDERLINE LINK ANIMATION --- */
 a, .link-hover {
     color: inherit;

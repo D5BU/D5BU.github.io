@@ -54,6 +54,13 @@ class App {
 
     /* --- 1. CUSTOM CURSOR WITH LERP LAG --- */
     initCursor() {
+        // Exit early on touch-only devices to avoid irritation
+        if (window.matchMedia("(pointer: coarse)").matches || 'ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            if (this.cursorDot) this.cursorDot.style.display = 'none';
+            if (this.cursorRing) this.cursorRing.style.display = 'none';
+            return;
+        }
+
         let mouseX = 0, mouseY = 0;
         let ringX = 0, ringY = 0;
 
