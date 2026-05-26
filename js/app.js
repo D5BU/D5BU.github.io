@@ -35,6 +35,11 @@ class App {
         this.initModalListeners();
         this.initHeroAnimation();
         this.initNavClickHandlers();
+
+        // Initialize AI Assistant Chatbot
+        if (typeof window.AiAssistant === 'function') {
+            this.aiAssistant = new window.AiAssistant();
+        }
     }
 
     loadDynamicFonts() {

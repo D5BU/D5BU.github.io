@@ -555,6 +555,38 @@
         </div>
     </div>
 
+    <!-- AI CHAT ASSISTANT WIDGET -->
+    <div id="ai-chat-widget">
+        <!-- Drawer Panel -->
+        <div id="ai-chat-window">
+            <div class="chat-header">
+                <h4>
+                    <span class="chat-status-dot"></span>
+                    D5BU-Bot // AI Assistant
+                </h4>
+                <button id="ai-chat-close" aria-label="Close Chat">✕</button>
+            </div>
+            <div id="ai-chat-feed">
+                <!-- Messages will load dynamically -->
+            </div>
+            <form id="ai-chat-form">
+                <input type="text" id="ai-chat-input" placeholder="Type a message..." autocomplete="off">
+                <button type="submit" class="chat-send-btn" aria-label="Send Message">
+                    <svg viewBox="0 0 24 24">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </form>
+        </div>
+        <!-- Trigger Button -->
+        <button id="ai-chat-toggle" class="magnetic" aria-label="Toggle AI Assistant">
+            <svg viewBox="0 0 24 24">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </button>
+    </div>
+
     <!-- Core Utilities & State -->
     <script src="js/core/dom.js"></script>
     <script src="js/core/state.js"></script>
@@ -573,6 +605,7 @@
     <script src="js/modules/BruteForceDemo.js"></script>
     <script src="js/modules/OsiModel.js"></script>
     <script src="js/modules/Settings.js"></script>
+    <script src="js/modules/AiAssistant.js"></script>
 
     <!-- Application Controller Logic -->
     <script src="js/app.js"></script>
