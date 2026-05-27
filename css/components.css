@@ -1217,6 +1217,7 @@
     cursor: pointer;
     box-shadow: 0 8px 24px rgba(0,0,0,0.6);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: toggle-glow-pulse 3s infinite;
 }
 
 #ai-chat-toggle:hover, #ai-chat-toggle.active {
@@ -1224,6 +1225,85 @@
     background-color: var(--accent-coral);
     color: #fff;
     transform: translateY(-4px) scale(1.05);
+    animation: none;
+    box-shadow: 0 12px 30px rgba(235, 89, 57, 0.4);
+}
+
+/* Highlight Tooltip Badge */
+#ai-chat-badge {
+    position: absolute;
+    right: 72px;
+    top: 10px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #0b0b0c;
+    border: 1px solid var(--accent-coral);
+    padding: 0 14px;
+    color: var(--text-primary);
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Tooltip behavior relative to toggle states */
+#ai-chat-toggle:hover + #ai-chat-badge {
+    transform: translateX(-4px) translateY(-4px);
+    box-shadow: 0 6px 20px rgba(235, 89, 57, 0.25);
+}
+
+#ai-chat-toggle.active + #ai-chat-badge {
+    opacity: 0;
+    transform: translateX(20px);
+    pointer-events: none;
+}
+
+/* Blinking Indicator Dot */
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent-coral);
+    box-shadow: 0 0 8px var(--accent-coral);
+    animation: badge-dot-pulse 1.5s infinite;
+}
+
+@keyframes badge-dot-pulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+        box-shadow: 0 0 0 0 rgba(235, 89, 57, 0.7);
+    }
+    70% {
+        transform: scale(1.1);
+        opacity: 1;
+        box-shadow: 0 0 0 8px rgba(235, 89, 57, 0);
+    }
+    100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+        box-shadow: 0 0 0 0 rgba(235, 89, 57, 0);
+    }
+}
+
+@keyframes toggle-glow-pulse {
+    0% {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 0 0 rgba(235, 89, 57, 0.4);
+    }
+    50% {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 0 10px rgba(235, 89, 57, 0);
+    }
+    100% {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 0 0 rgba(235, 89, 57, 0);
+    }
 }
 
 #ai-chat-toggle svg {
@@ -1438,5 +1518,8 @@
         right: 16px;
         width: calc(100vw - 32px);
         height: 400px;
+    }
+    #ai-chat-badge {
+        display: none;
     }
 }
