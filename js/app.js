@@ -5,6 +5,7 @@ class App {
             'logic-gates': new window.LogicGates(),
             'brute-force': new window.BruteForceDemo(),
             'osi-model': new window.OsiModel(),
+            'osi-game': new window.OsiGame(),
             'settings': new window.Settings()
         };
 
@@ -335,6 +336,7 @@ class App {
         const cardLogic = DOM.get('#card-logic-gates');
         const cardBrute = DOM.get('#card-brute-force');
         const cardOsi = DOM.get('#card-osi-model');
+        const cardOsiGame = DOM.get('#card-osi-game');
         const cards = document.querySelectorAll('.work-grid .work-card');
 
         if (cardSorting) {
@@ -348,6 +350,9 @@ class App {
         }
         if (cardOsi) {
             cardOsi.addEventListener('click', () => this.openModuleModal('osi-model', 'OSI Model Encapsulation Lab'));
+        }
+        if (cardOsiGame) {
+            cardOsiGame.addEventListener('click', () => this.openModuleModal('osi-game', 'OSI CyberRun: The Hacking-Courier'));
         }
 
         // Static Work Project Modals (JusticeGPT and D5BU Shield)
