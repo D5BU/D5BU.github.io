@@ -707,6 +707,73 @@ class OsiGame {
         ];
     }
 
+    drawPackyAvatarSvg(expression) {
+        let eyesHtml = '';
+        let mouthHtml = '';
+        
+        if (expression === 'happy') {
+            eyesHtml = `
+                <path d="M 22 38 Q 28 30 34 38" stroke="var(--accent-coral)" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path d="M 56 38 Q 62 30 68 38" stroke="var(--accent-coral)" stroke-width="3" stroke-linecap="round" fill="none" />
+            `;
+            mouthHtml = `<path d="M 38 50 Q 45 57 52 50" stroke="var(--accent-coral)" stroke-width="3" stroke-linecap="round" fill="none" />`;
+        } else if (expression === 'curious') {
+            eyesHtml = `
+                <circle cx="28" cy="36" r="3.5" fill="#00FF66" />
+                <path d="M 55 32 L 65 36" stroke="#00FF66" stroke-width="3" stroke-linecap="round" />
+                <circle cx="60" cy="38" r="3.5" fill="#00FF66" />
+            `;
+            mouthHtml = `<circle cx="45" cy="52" r="3" fill="#00FF66" />`;
+        } else if (expression === 'dizzy') {
+            eyesHtml = `
+                <path d="M 23 32 L 31 40 M 31 32 L 23 40" stroke="#FF3366" stroke-width="3" stroke-linecap="round" />
+                <path d="M 57 32 L 65 40 M 65 32 L 57 40" stroke="#FF3366" stroke-width="3" stroke-linecap="round" />
+            `;
+            mouthHtml = `<path d="M 36 53 Q 41 47 46 53 T 56 53" stroke="#FF3366" stroke-width="2.5" stroke-linecap="round" fill="none" />`;
+        } else if (expression === 'worried') {
+            eyesHtml = `
+                <path d="M 22 36 L 34 33" stroke="#e2e2e8" stroke-width="2.5" stroke-linecap="round" />
+                <circle cx="28" cy="40" r="3" fill="#e2e2e8" />
+                <path d="M 56 33 L 68 36" stroke="#e2e2e8" stroke-width="2.5" stroke-linecap="round" />
+                <circle cx="62" cy="40" r="3" fill="#e2e2e8" />
+            `;
+            mouthHtml = `<path d="M 38 54 Q 45 46 52 54" stroke="#e2e2e8" stroke-width="3" stroke-linecap="round" fill="none" />`;
+        } else if (expression === 'celebrate') {
+            eyesHtml = `
+                <path d="M 22 36 Q 28 28 34 36 Q 28 44 22 36 Z" fill="#00FF66" />
+                <path d="M 56 36 Q 62 28 68 36 Q 62 44 56 36 Z" fill="#00FF66" />
+            `;
+            mouthHtml = `<path d="M 34 48 Q 45 60 56 48 Z" fill="#00FF66" />`;
+        }
+
+        const strokeColor = expression === 'dizzy' ? '#FF3366' : (expression === 'curious' ? '#00FF66' : 'var(--accent-coral)');
+
+        return `
+            <svg width="80" height="80" viewBox="0 0 90 90" style="display: block;">
+                <defs>
+                    <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="rgba(255,255,255,0.06)" />
+                        <stop offset="100%" stop-color="rgba(255,255,255,0.01)" />
+                    </linearGradient>
+                </defs>
+                <rect x="5" y="15" width="80" height="60" rx="10" ry="10" fill="url(#avatarGrad)" stroke="${strokeColor}" stroke-width="2.5" style="filter: drop-shadow(0 0 6px ${strokeColor}44);" />
+                
+                <line x1="25" y1="15" x2="25" y2="8" stroke="${strokeColor}" stroke-width="2" />
+                <circle cx="25" cy="7" r="2" fill="${strokeColor}" />
+                <line x1="65" y1="15" x2="65" y2="8" stroke="${strokeColor}" stroke-width="2" />
+                <circle cx="65" cy="7" r="2" fill="${strokeColor}" />
+
+                <circle cx="15" cy="25" r="2.5" fill="#00FF66" style="opacity: 0.8;" />
+                <circle cx="75" cy="25" r="2.5" fill="#FF3366" style="opacity: 0.8;" />
+
+                <g>
+                    ${eyesHtml}
+                    ${mouthHtml}
+                </g>
+            </svg>
+        `;
+    }
+
     loadCourierVictoryScreen() {
         this.stopCourierLoop();
         this.removeKeyboardListener();
