@@ -411,6 +411,10 @@ class OsiGame {
 
     /* --- COURIER ARCADE MODE --- */
     loadCourierScreen() {
+        if (this.keyboardHandler) {
+            window.removeEventListener('keydown', this.keyboardHandler);
+            this.keyboardHandler = null;
+        }
         this.courier.score = 0;
         this.courier.distance = 0;
         this.courier.currentLayer = 7;
@@ -436,7 +440,7 @@ class OsiGame {
 
                 <!-- Game Canvas -->
                 <div style="position: relative; width: 100%; overflow: hidden; background: #010102; border: 1px solid rgba(255,255,255,0.03); border-radius: 4px;">
-                    <canvas id="courier-canvas" width="680" height="260" style="display: block; width: 100%; height: auto;"></canvas>
+                    <canvas id="courier-canvas" width="680" height="260" tabindex="0" style="display: block; width: 100%; height: auto; outline: none;"></canvas>
                     
                     <!-- Mobile Virtual Keys / Help Overlays -->
                     <div style="position: absolute; bottom: 8px; right: 8px; display: flex; gap: 4px;">
@@ -458,6 +462,13 @@ class OsiGame {
 
         this.courier.canvas = DOM.get('#courier-canvas');
         this.courier.ctx = this.courier.canvas.getContext('2d');
+        
+        // Focus the canvas immediately so that keyboard controls work without needing a mouse click
+        setTimeout(() => {
+            if (this.courier.canvas) {
+                this.courier.canvas.focus();
+            }
+        }, 50);
 
         // Setup Virtual Keys
         DOM.get('#virtual-up').addEventListener('click', () => this.moveCourierPlayer(-1));
@@ -666,7 +677,7 @@ class OsiGame {
             ];
             const obsType = obstaclesList[Math.floor(Math.random() * obstaclesList.length)];
             this.courier.obstacles.push({
-                x: 700, y: y, size: 24, type: obsType
+                x: 700, y: y, size: 32, type: obsType
             });
         }
     }
@@ -735,10 +746,10 @@ class OsiGame {
             ctx.rect(obs.x - obs.size/2, obs.y - obs.size/2, obs.size, obs.size);
             ctx.fill();
 
-            // Label
+            // Label (High contrast black text, larger size for readability)
             ctx.shadowBlur = 0;
-            ctx.fillStyle = '#fff';
-            ctx.font = 'bold 7px "Fira Code"';
+            ctx.fillStyle = '#0b0b0c';
+            ctx.font = 'bold 9px "Fira Code"';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(obs.type.substring(0, 4), obs.x, obs.y);
