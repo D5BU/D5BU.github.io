@@ -639,6 +639,25 @@ class OsiGame {
         this.startCourierLoop();
     }
 
+    getDialogueSlides() {
+        return [
+            {
+                title: "Journey Commencement",
+                speaker: "Packy",
+                expression: "happy",
+                text: "Hey there, pilot! I am Packy, your networking courier! 🚀 You did it—you helped me navigate through all 7 layers of the network stack to be transmitted! But do you know what we actually just did? Let's trace my epic journey from raw application clicks to physical pulses traveling under the ocean!",
+                stack: ["payload"]
+            },
+            {
+                title: "Layer 7: Application Layer",
+                speaker: "Packy",
+                expression: "happy",
+                text: "It all started in Layer 7, the Application Layer, right where you interact with the software! When you clicked 'Start Transmission', I was born as raw Application data (HTTP payload). To mark my birth and specify what the server needs to do, we stamped me with the Application Header (AH). We successfully encapsulated the first layer!",
+                stack: ["AH", "payload"]
+            }
+        ];
+    }
+
     loadCourierVictoryScreen() {
         this.stopCourierLoop();
         this.removeKeyboardListener();
