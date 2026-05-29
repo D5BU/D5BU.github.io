@@ -514,21 +514,26 @@ class OsiGame {
     /* --- MENU SCREEN --- */
     loadMenuScreen() {
         this.screenMount.innerHTML = `
-            <div style="text-align: center; max-width: 500px; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;">
-                <h3 style="font-family: 'Clash Grotesk', sans-serif; font-size: 2rem; color: var(--accent-coral); text-transform: uppercase;">Choose Your Operation</h3>
-                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
-                    Explore the Open Systems Interconnection (OSI) reference model through two interactive learning paths. Enable sound for an 8-bit retro arcade experience.
+            <div style="text-align: center; max-width: 760px; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;">
+                <h3 style="font-family: 'Clash Grotesk', sans-serif; font-size: 2rem; color: var(--accent-coral); text-transform: uppercase; margin: 0;">Choose Your Operation</h3>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; max-width: 550px; margin: 0 auto;">
+                    Explore the Open Systems Interconnection (OSI) model and TCP/UDP port mapping through three interactive paths. Enable sound for an 8-bit retro arcade experience.
                 </p>
-                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
-                    <div class="panel" style="flex: 1; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 1.2rem; border-radius: 4px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
-                        <h4 style="text-transform: uppercase; font-family: 'Clash Grotesk', sans-serif; color: var(--text-primary);">1. Packet Courier</h4>
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap;">
+                    <div class="panel" style="flex: 1; min-width: 200px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 1.2rem; border-radius: 4px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                        <h4 style="text-transform: uppercase; font-family: 'Clash Grotesk', sans-serif; color: var(--text-primary); margin: 0;">1. Packet Courier</h4>
                         <span style="font-size: 11px; color: var(--text-secondary); min-height: 48px;">Pilot Packy down the tracks. Collect headers (AH-DH) and serialize into physical bits.</span>
                         <button id="menu-btn-launch-courier" class="game-hud-btn" style="background: var(--accent-coral); color: white; border-color: var(--accent-coral);">Run Courier</button>
                     </div>
-                    <div class="panel" style="flex: 1; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 1.2rem; border-radius: 4px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
-                        <h4 style="text-transform: uppercase; font-family: 'Clash Grotesk', sans-serif; color: var(--text-primary);">2. Cyber Heist</h4>
+                    <div class="panel" style="flex: 1; min-width: 200px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 1.2rem; border-radius: 4px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                        <h4 style="text-transform: uppercase; font-family: 'Clash Grotesk', sans-serif; color: var(--text-primary); margin: 0;">2. Cyber Heist</h4>
                         <span style="font-size: 11px; color: var(--text-secondary); min-height: 48px;">Infiltrate ADYU Corp. Solve 7 cybersecurity networking puzzles (one for each layer).</span>
                         <button id="menu-btn-launch-heist" class="game-hud-btn" style="background: var(--accent-coral); color: white; border-color: var(--accent-coral);">Start Heist</button>
+                    </div>
+                    <div class="panel" style="flex: 1; min-width: 200px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 1.2rem; border-radius: 4px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                        <h4 style="text-transform: uppercase; font-family: 'Clash Grotesk', sans-serif; color: var(--text-primary); margin: 0;">3. Port Connector</h4>
+                        <span style="font-size: 11px; color: var(--text-secondary); min-height: 48px;">Connect service plugs (HTTP, SSH) into their laptop port sockets. Memorize with mnemonics.</span>
+                        <button id="menu-btn-launch-ports" class="game-hud-btn" style="background: var(--accent-coral); color: white; border-color: var(--accent-coral);">Practice Ports</button>
                     </div>
                 </div>
             </div>
@@ -536,6 +541,7 @@ class OsiGame {
 
         DOM.get('#menu-btn-launch-courier').addEventListener('click', () => this.switchMode('courier'));
         DOM.get('#menu-btn-launch-heist').addEventListener('click', () => this.switchMode('heist'));
+        DOM.get('#menu-btn-launch-ports').addEventListener('click', () => this.switchMode('ports'));
     }
 
     /* --- COURIER ARCADE MODE --- */
