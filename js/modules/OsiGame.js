@@ -654,6 +654,20 @@ class OsiGame {
                 expression: "happy",
                 text: "It all started in Layer 7, the Application Layer, right where you interact with the software! When you clicked 'Start Transmission', I was born as raw Application data (HTTP payload). To mark my birth and specify what the server needs to do, we stamped me with the Application Header (AH). We successfully encapsulated the first layer!",
                 stack: ["AH", "payload"]
+            },
+            {
+                title: "Layer 6: Presentation Layer",
+                speaker: "Packy",
+                expression: "curious",
+                text: "Next, we descended into Layer 6, the Presentation Layer. This is the translator of the network. Raw HTTP payload is often bloated or insecure. Here, my body was standardized into common UTF-8 formatting, compressed to save bandwidth, and encrypted with SSL/TLS keys to block hackers. Stamped with the Presentation Header (PH), we dodged the static electromagnetic NOISE that would scramble my syntax!",
+                stack: ["PH", "AH", "payload"]
+            },
+            {
+                title: "Layer 5: Session Layer",
+                speaker: "Packy",
+                expression: "happy",
+                text: "Down we went to Layer 5, the Session Layer, the coordinator of the chat. Think of it like establishing a phone call. We appended the Session Header (SH) to establish, manage, and terminate the connection session between your client browser and the target server. This keeps our dialogue synchronized and guards against connection TIMEOUTS that would drop the call!",
+                stack: ["SH", "PH", "AH", "payload"]
             }
         ];
     }
