@@ -1317,7 +1317,7 @@ class OsiGame {
         if (this.portsGame.isGameOver || this.portsGame.isVictory) return;
 
         this.portsGame.spawnTimer++;
-        if (this.portsGame.spawnTimer > 110) {
+        if (this.portsGame.spawnTimer > 160) {
             this.portsGame.spawnTimer = 0;
             this.spawnPortsCable();
         }
@@ -1372,7 +1372,7 @@ class OsiGame {
             y: -20,
             label: sock.label,
             port: sock.port,
-            speed: 0.7 + (this.portsGame.score / 1000) * 0.5,
+            speed: 0.45 + (this.portsGame.score / 1000) * 0.3,
             isDragging: false,
             dragOffset: { x: 0, y: 0 }
         });
