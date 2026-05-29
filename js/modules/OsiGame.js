@@ -668,6 +668,20 @@ class OsiGame {
                 expression: "happy",
                 text: "Down we went to Layer 5, the Session Layer, the coordinator of the chat. Think of it like establishing a phone call. We appended the Session Header (SH) to establish, manage, and terminate the connection session between your client browser and the target server. This keeps our dialogue synchronized and guards against connection TIMEOUTS that would drop the call!",
                 stack: ["SH", "PH", "AH", "payload"]
+            },
+            {
+                title: "Layer 4: Transport Layer",
+                speaker: "Packy",
+                expression: "dizzy",
+                text: "Things got segmentary at Layer 4, the Transport Layer! If a data stream is too big, this layer chops it up into smaller packets. We stamped the Transport Header (TH), selecting TCP as our transmission protocol. TH holds sequence numbers for ordered reassembly and source/destination port numbers (like port 443 for secure HTTPS). We dodged the TCP Buffer OVERFLOWS here!",
+                stack: ["TH", "SH", "PH", "AH", "payload"]
+            },
+            {
+                title: "Layer 3: Network Layer",
+                speaker: "Packy",
+                expression: "worried",
+                text: "We reached Layer 3, the Network Layer—the global router! Now segmented, I needed to know how to travel across the internet. This layer packed me inside an IP datagram and stamped the Network Header (NH), containing your machine's source IP and the server's target IP. This is where physical routers inspected my NH to prevent routing loops (which trigger DROP hazards) and direct me toward the destination!",
+                stack: ["NH", "TH", "SH", "PH", "AH", "payload"]
             }
         ];
     }
