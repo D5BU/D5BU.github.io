@@ -801,6 +801,26 @@ class OsiGame {
         type();
     }
 
+    drawEncapsulationStackHtml(stackArray) {
+        if (!stackArray || stackArray.length === 0) return '';
+        
+        if (stackArray.includes('bits')) {
+            return `
+                <div class="encap-block bits" style="animation: pulse 1s infinite alternate;">
+                    01000011 01011001 01000012 01000101 01010010 01010010 01010101 01001110
+                </div>
+            `;
+        }
+
+        return stackArray.map(item => {
+            if (item === 'payload') {
+                return `<div class="encap-block payload">DATA</div>`;
+            } else {
+                return `<div class="encap-block header">${item}</div>`;
+            }
+        }).join('<span style="color:rgba(255,255,255,0.3); font-size:10px; font-weight:bold;">&lt;</span>');
+    }
+
     loadCourierVictoryScreen() {
         this.stopCourierLoop();
         this.removeKeyboardListener();
