@@ -214,7 +214,10 @@ class OsiGame {
             speed: 4,
             spawnTimer: 0,
             layerProgress: 0,
-            headersCollected: []
+            headersCollected: [],
+            dialogueActive: false,
+            dialogueSlideIndex: 0,
+            dialogueTimeout: null
         };
 
         // Cyber Heist Puzzle State
