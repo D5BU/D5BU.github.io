@@ -569,6 +569,12 @@ class OsiGame {
         this.courier.player.track = 1;
         this.courier.player.y = 130;
         this.courier.player.targetY = 130;
+        this.courier.dialogueActive = false;
+        this.courier.dialogueSlideIndex = 0;
+        if (this.courier.dialogueTimeout) {
+            clearTimeout(this.courier.dialogueTimeout);
+            this.courier.dialogueTimeout = null;
+        }
 
         this.screenMount.innerHTML = `
             <div style="display: flex; flex-direction: column; width: 100%; height: 100%; position: relative; padding: 1rem;">
