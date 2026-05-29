@@ -227,6 +227,23 @@ class OsiGame {
             solved: false,
             puzzleState: {}
         };
+
+        // Port Connector Game State
+        this.portsGame = {
+            canvas: null,
+            ctx: null,
+            animationFrame: null,
+            score: 0,
+            lives: 3,
+            isGameOver: false,
+            isVictory: false,
+            cables: [],
+            sockets: [],
+            spawnTimer: 0,
+            activeDragCable: null,
+            mousePos: { x: 0, y: 0 },
+            currentMnemonic: ""
+        };
     }
 
     render() {
