@@ -774,6 +774,29 @@ class OsiGame {
         `;
     }
 
+    typewriterDialogueText(targetId, fullText, callback) {
+        if (this.courier.dialogueTimeout) {
+            clearTimeout(this.courier.dialogueTimeout);
+        }
+
+        const el = DOM.get(`#${targetId}`);
+        if (!el) return;
+        el.innerHTML = '';
+        
+        let index = 0;
+        const type = () => {
+            if (!this.courier.dialogueActive) return;
+            if (index < fullText.length) {
+                el.innerHTML += fullText[index++];
+                this.courier.dialogueTimeout = setTimeout(type, 18);
+            } else {
+                this.courier.dialogueTimeout = null;
+                if (callback) callback();
+            }
+        };
+        type();
+    }
+
     loadCourierVictoryScreen() {
         this.stopCourierLoop();
         this.removeKeyboardListener();
