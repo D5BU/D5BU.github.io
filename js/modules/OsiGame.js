@@ -304,6 +304,98 @@ class OsiGame {
                         border-color: #00FF66;
                         box-shadow: 0 0 8px rgba(0, 255, 102, 0.15);
                     }
+                    /* Dialogue Layout & Animations */
+                    .dialogue-container {
+                        display: flex;
+                        gap: 1.5rem;
+                        background: rgba(3, 3, 4, 0.6);
+                        border: 1px solid rgba(255, 255, 255, 0.05);
+                        border-radius: 8px;
+                        padding: 1.5rem;
+                        backdrop-filter: blur(12px);
+                        -webkit-backdrop-filter: blur(12px);
+                        position: relative;
+                        overflow: hidden;
+                        margin-top: 10px;
+                        animation: fadeIn 0.4s ease-out;
+                        width: 100%;
+                    }
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(10px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                    .packy-avatar-box {
+                        width: 90px;
+                        height: 90px;
+                        background: rgba(255, 255, 255, 0.02);
+                        border: 1px solid rgba(255, 255, 255, 0.08);
+                        border-radius: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                        flex-shrink: 0;
+                        box-shadow: 0 0 15px rgba(235, 89, 57, 0.1);
+                        animation: breathe 3s ease-in-out infinite alternate;
+                    }
+                    @keyframes breathe {
+                        0% { transform: translateY(0px) scale(1); }
+                        100% { transform: translateY(-4px) scale(1.02); }
+                    }
+                    .dialogue-bubble {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        gap: 12px;
+                    }
+                    /* Encapsulation Stack Styles */
+                    .encap-stack-container {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                        gap: 6px;
+                        min-height: 45px;
+                        padding: 10px;
+                        background: rgba(0, 0, 0, 0.2);
+                        border-radius: 4px;
+                        border: 1px dashed rgba(255, 255, 255, 0.05);
+                        margin: 10px 0;
+                    }
+                    .encap-block {
+                        padding: 4px 10px;
+                        font-family: 'Fira Code', monospace;
+                        font-size: 11px;
+                        font-weight: bold;
+                        border-radius: 3px;
+                        text-transform: uppercase;
+                        box-shadow: 0 0 6px rgba(255,255,255,0.05);
+                        animation: slideIn 0.3s ease-out;
+                    }
+                    .encap-block.header {
+                        background: #00FF66;
+                        color: #0b0b0c;
+                        border: 1px solid #00FF66;
+                    }
+                    .encap-block.payload {
+                        background: var(--accent-coral);
+                        color: #fff;
+                        border: 1px solid var(--accent-coral);
+                        box-shadow: 0 0 10px rgba(235, 89, 57, 0.3);
+                    }
+                    .encap-block.bits {
+                        background: transparent;
+                        color: #00FF66;
+                        border: 1px solid rgba(0, 255, 102, 0.3);
+                        font-size: 10px;
+                        letter-spacing: 1px;
+                        box-shadow: 0 0 8px rgba(0, 255, 102, 0.2);
+                    }
+                    @keyframes slideIn {
+                        from { transform: scale(0.8); opacity: 0; }
+                        to { transform: scale(1); opacity: 1; }
+                    }
                 </style>
 
                 <!-- GAME TOP CONTROL BAR -->
