@@ -1057,6 +1057,507 @@ class OsiGame {
         });
     }
 
+    /* --- PORT CONNECTOR MODE --- */
+    loadPortsScreen() {
+        this.removeKeyboardListener();
+        this.screenMount.innerHTML = `
+            <div style="text-align: left; max-width: 550px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.2rem; font-family: 'Satoshi', sans-serif;">
+                <h3 style="font-family: 'Clash Grotesk', sans-serif; font-size: 1.6rem; color: var(--accent-coral); text-transform: uppercase; margin: 0; letter-spacing: 0.05em;">
+                    Operation: Port Connector
+                </h3>
+                
+                <div style="font-size: 13px; line-height: 1.6; color: var(--text-secondary); display: flex; flex-direction: column; gap: 12px;">
+                    <p style="margin: 0;">
+                        <strong>What are we doing?</strong><br>
+                        We are mapping logical request cables (HTTP, SSH, DNS, FTP) to their matching numbered port sockets on the motherboard.
+                    </p>
+                    <p style="margin: 0;">
+                        <strong>Objective:</strong><br>
+                        Drag the falling cable plugs and connect them to their correct port numbers. Reach <strong>1000 points</strong> to win!
+                    </p>
+                    <ul style="list-style: none; padding-left: 0; display: flex; flex-direction: column; gap: 8px; margin: 0;">
+                        <li style="display: flex; align-items: start; gap: 8px;">
+                            <span style="color: #00FF66;">🟢</span>
+                            <span><strong>Correct Plug:</strong> Connect cables to the matching ports to score <strong>+100 pts</strong> and learn the port mnemonic.</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 8px;">
+                            <span style="color: #FF3366;">🔴</span>
+                            <span><strong>Hazards:</strong> Do not plug into the wrong port, and do not let cables touch the bottom of the screen! Doing so triggers a short-circuit and deducts a life.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 0.5rem;">
+                    <button id="ports-briefing-btn-start" class="game-hud-btn" style="background: var(--accent-coral); color: white; border-color: var(--accent-coral); padding: 10px 24px;">Start Operation</button>
+                    <button id="ports-briefing-btn-back" class="game-hud-btn" style="padding: 10px 20px;">Back to Menu</button>
+                </div>
+            </div>
+        `;
+
+        DOM.get('#ports-briefing-btn-start').addEventListener('click', () => {
+            this.runPortsGame();
+        });
+        DOM.get('#ports-briefing-btn-back').addEventListener('click', () => {
+            this.switchMode('menu');
+        });
+    }
+
+    runPortsGame() {
+        this.removeKeyboardListener();
+        this.portsGame.score = 0;
+        this.portsGame.lives = 3;
+        this.portsGame.isGameOver = false;
+        this.portsGame.isVictory = false;
+        this.portsGame.cables = [];
+        this.portsGame.spawnTimer = 0;
+        this.portsGame.activeDragCable = null;
+        this.portsGame.clickBound = false;
+        this.portsGame.currentMnemonic = "Drag and plug the falling service cables into the correct sockets!";
+
+        const portDefinitions = [
+            { label: 'FTP', port: 21, mnemonic: 'FTP is legal at age 21—transfer files freely!' },
+            { label: 'SSH', port: 22, mnemonic: 'Double 2s (22) lock your remote shell connection tight!' },
+            { label: 'Telnet', port: 23, mnemonic: 'Telnet (23) is an unencrypted, old-school connection!' },
+            { label: 'SMTP', port: 25, mnemonic: 'Send Mail To People (SMTP) on December 25th!' },
+            { label: 'DNS', port: 53, mnemonic: 'DNS translates domain names to IPs in 5.3 seconds!' },
+            { label: 'HTTP', port: 80, mnemonic: 'HTTP is standard web traffic on route 80.' },
+            { label: 'HTTPS', port: 443, mnemonic: 'Secure HTTPS locks down traffic on route 443!' },
+            { label: 'MySQL', port: 3306, mnemonic: 'MySQL database stores data in 3,306 tables!' }
+        ];
+
+        this.portsGame.sockets = portDefinitions.map((def, idx) => {
+            return {
+                x: 48 + idx * 84,
+                y: 200,
+                label: def.label,
+                port: def.port,
+                mnemonic: def.mnemonic,
+                radius: 18,
+                isMatched: false
+            };
+        });
+
+        this.screenMount.innerHTML = `
+            <div style="display: flex; flex-direction: column; width: 100%; height: 100%; position: relative; padding: 0.5rem 1rem;">
+                
+                <!-- Port Connector HUD -->
+                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code', monospace; font-size: 11px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; margin-bottom: 8px; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <div>OPERATION: <strong style="color: var(--accent-coral);">PORT CONNECTOR</strong></div>
+                    <div>LIVES: <span id="ports-hud-lives" style="color: #FF3366; font-weight: bold;">❤❤❤</span></div>
+                    <div>SCORE: <strong id="ports-hud-score" style="color: #00FF66;">0 / 1000</strong></div>
+                </div>
+
+                <!-- Canvas -->
+                <div style="position: relative; width: 100%; overflow: hidden; background: #010102; border: 1px solid rgba(255,255,255,0.03); border-radius: 4px;">
+                    <canvas id="ports-canvas" width="680" height="260" style="display: block; width: 100%; height: auto; outline: none; cursor: crosshair;"></canvas>
+                </div>
+
+                <!-- Mnemonic Helper panel -->
+                <div id="ports-mnemonic-panel" class="panel" style="margin-top: 10px; background: #0b0b0c; border: 1px solid rgba(255,255,255,0.05); padding: 10px; font-size: 11px; line-height: 1.4; font-family: 'Satoshi', sans-serif; min-height: 48px;">
+                    <span style="color: var(--accent-coral); font-weight: bold; text-transform: uppercase;">Mnemonic Aid:</span> 
+                    <span id="ports-mnemonic-text">Drag and plug the falling service cables into the correct sockets!</span>
+                </div>
+            </div>
+        `;
+
+        this.portsGame.canvas = DOM.get('#ports-canvas');
+        this.portsGame.ctx = this.portsGame.canvas.getContext('2d');
+
+        this.setupPortsInputHandlers();
+        this.startPortsLoop();
+    }
+
+    setupPortsInputHandlers() {
+        const canvas = this.portsGame.canvas;
+        
+        const getMouseCoords = (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 680;
+            const y = ((e.clientY - rect.top) / rect.height) * 260;
+            return { x, y };
+        };
+
+        const handleStart = (coords) => {
+            if (this.portsGame.isGameOver || this.portsGame.isVictory) return;
+            
+            for (let i = 0; i < this.portsGame.cables.length; i++) {
+                const cab = this.portsGame.cables[i];
+                const dx = coords.x - cab.x;
+                const dy = coords.y - cab.y;
+                const distance = Math.sqrt(dx*dx + dy*dy);
+                
+                if (distance < 25) {
+                    this.portsGame.activeDragCable = cab;
+                    cab.isDragging = true;
+                    cab.dragOffset = { x: dx, y: dy };
+                    break;
+                }
+            }
+        };
+
+        const handleMove = (coords) => {
+            this.portsGame.mousePos = coords;
+            if (this.portsGame.activeDragCable) {
+                this.portsGame.activeDragCable.x = coords.x - this.portsGame.activeDragCable.dragOffset.x;
+                this.portsGame.activeDragCable.y = coords.y - this.portsGame.activeDragCable.dragOffset.y;
+            }
+        };
+
+        const handleEnd = () => {
+            if (!this.portsGame.activeDragCable) return;
+            const cab = this.portsGame.activeDragCable;
+            cab.isDragging = false;
+            this.portsGame.activeDragCable = null;
+
+            let snapMatched = false;
+            for (let i = 0; i < this.portsGame.sockets.length; i++) {
+                const sock = this.portsGame.sockets[i];
+                const dx = cab.x - sock.x;
+                const dy = cab.y - sock.y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                
+                if (dist < 28) {
+                    if (sock.port === cab.port) {
+                        snapMatched = true;
+                        this.portsGame.score += 100;
+                        
+                        if (this.soundEnabled) {
+                            this.audio.playBleep(880, 0.15, 'triangle');
+                        }
+                        
+                        this.portsGame.currentMnemonic = `[CORRECT!] Port ${sock.port} (${sock.label}): ${sock.mnemonic}`;
+                        const txtEl = DOM.get('#ports-mnemonic-text');
+                        if (txtEl) txtEl.textContent = sock.mnemonic;
+
+                        this.portsGame.cables = this.portsGame.cables.filter(c => c !== cab);
+                        
+                        if (this.portsGame.score >= 1000) {
+                            this.triggerPortsVictory();
+                        }
+                    } else {
+                        snapMatched = true;
+                        this.portsGame.lives--;
+                        this.triggerPortsShortCircuit(cab, `Mismatch! Connected ${cab.label} to Port ${sock.port} instead of Port ${cab.port}.`);
+                    }
+                    break;
+                }
+            }
+
+            if (!snapMatched) {
+                cab.isDragging = false;
+            }
+        };
+
+        canvas.addEventListener('mousedown', (e) => handleStart(getMouseCoords(e)));
+        canvas.addEventListener('mousemove', (e) => handleMove(getMouseCoords(e)));
+        window.addEventListener('mouseup', () => handleEnd());
+
+        canvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                handleStart(getMouseCoords(e.touches[0]));
+            }
+        });
+        canvas.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                handleMove(getMouseCoords(e.touches[0]));
+            }
+        });
+        canvas.addEventListener('touchend', () => handleEnd());
+    }
+
+    triggerPortsShortCircuit(cable, reason) {
+        if (this.soundEnabled) {
+            this.audio.playFail();
+        }
+
+        const txtEl = DOM.get('#ports-mnemonic-text');
+        if (txtEl) {
+            txtEl.innerHTML = `<span style="color:#FF3366; font-weight:bold;">⚠️ SHORT CIRCUIT!</span> ${reason}`;
+        }
+
+        this.portsGame.cables = this.portsGame.cables.filter(c => c !== cable);
+
+        if (this.portsGame.lives <= 0) {
+            this.triggerPortsGameOver();
+        }
+    }
+
+    triggerPortsGameOver() {
+        this.portsGame.isGameOver = true;
+        if (this.soundEnabled) {
+            this.audio.playExplosion();
+        }
+    }
+
+    triggerPortsVictory() {
+        this.portsGame.isVictory = true;
+        if (this.soundEnabled) {
+            this.audio.playSuccess();
+        }
+    }
+
+    startPortsLoop() {
+        this.stopPortsLoop();
+        const loop = () => {
+            this.updatePorts();
+            this.drawPorts();
+            this.portsGame.animationFrame = requestAnimationFrame(loop);
+        };
+        this.portsGame.animationFrame = requestAnimationFrame(loop);
+    }
+
+    stopPortsLoop() {
+        if (this.portsGame.animationFrame) {
+            cancelAnimationFrame(this.portsGame.animationFrame);
+            this.portsGame.animationFrame = null;
+        }
+    }
+
+    updatePorts() {
+        if (this.portsGame.isGameOver || this.portsGame.isVictory) return;
+
+        this.portsGame.spawnTimer++;
+        if (this.portsGame.spawnTimer > 110) {
+            this.portsGame.spawnTimer = 0;
+            this.spawnPortsCable();
+        }
+
+        this.portsGame.cables.forEach((cab, idx) => {
+            if (!cab.isDragging) {
+                cab.y += cab.speed;
+                cab.x = cab.spawnX; // align back to vertical fallback lane
+                
+                if (cab.y > 175) {
+                    this.portsGame.lives--;
+                    this.portsGame.cables.splice(idx, 1);
+                    
+                    if (this.soundEnabled) {
+                        this.audio.playFail();
+                    }
+
+                    const txtEl = DOM.get('#ports-mnemonic-text');
+                    if (txtEl) {
+                        txtEl.innerHTML = `<span style="color:#FF3366; font-weight:bold;">⚠️ CABLE DROPPED!</span> ${cab.label} reached the chassis without connection (Port ${cab.port}).`;
+                    }
+
+                    if (this.portsGame.lives <= 0) {
+                        this.triggerPortsGameOver();
+                    }
+                }
+            }
+        });
+
+        const scoreEl = DOM.get('#ports-hud-score');
+        const livesEl = DOM.get('#ports-hud-lives');
+        if (scoreEl) scoreEl.textContent = `${this.portsGame.score} / 1000`;
+        if (livesEl) {
+            let hearts = '';
+            for (let i = 0; i < 3; i++) {
+                hearts += i < this.portsGame.lives ? '❤' : '💔';
+            }
+            livesEl.textContent = hearts;
+        }
+    }
+
+    spawnPortsCable() {
+        const index = Math.floor(Math.random() * this.portsGame.sockets.length);
+        const sock = this.portsGame.sockets[index];
+
+        if (this.portsGame.cables.some(c => c.port === sock.port)) return;
+
+        const startX = 60 + Math.random() * 560;
+        this.portsGame.cables.push({
+            spawnX: startX,
+            x: startX,
+            y: -20,
+            label: sock.label,
+            port: sock.port,
+            speed: 0.7 + (this.portsGame.score / 1000) * 0.5,
+            isDragging: false,
+            dragOffset: { x: 0, y: 0 }
+        });
+    }
+
+    drawPorts() {
+        const ctx = this.portsGame.ctx;
+        if (!ctx) return;
+
+        ctx.fillStyle = '#010102';
+        ctx.fillRect(0, 0, 680, 260);
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i < 680; i += 40) {
+            ctx.beginPath();
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, 260);
+            ctx.stroke();
+        }
+        for (let j = 0; j < 260; j += 40) {
+            ctx.beginPath();
+            ctx.moveTo(0, j);
+            ctx.lineTo(680, j);
+            ctx.stroke();
+        }
+
+        ctx.fillStyle = 'rgba(255,255,255,0.01)';
+        ctx.fillRect(0, 160, 680, 100);
+        ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, 160);
+        ctx.lineTo(680, 160);
+        ctx.stroke();
+
+        this.portsGame.sockets.forEach(sock => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.strokeStyle = 'var(--text-secondary)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(sock.x, sock.y, sock.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#0b0b0c';
+            ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(sock.x, sock.y, 7, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#00FF66';
+            ctx.beginPath();
+            ctx.arc(sock.x - 7, sock.y - 7, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = 'var(--text-primary)';
+            ctx.font = 'bold 9.5px "Fira Code", monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(sock.port, sock.x, sock.y + 28);
+
+            ctx.fillStyle = 'var(--text-secondary)';
+            ctx.font = 'bold 8.5px "Fira Code", monospace';
+            ctx.fillText(sock.label, sock.x, sock.y - 28);
+        });
+
+        this.portsGame.cables.forEach(cab => {
+            ctx.strokeStyle = 'rgba(235, 89, 57, 0.35)';
+            ctx.lineWidth = 3.5;
+            ctx.beginPath();
+            ctx.moveTo(cab.spawnX, 0);
+            const midY = cab.y * 0.45;
+            ctx.bezierCurveTo(cab.spawnX, midY, cab.x, midY + 15, cab.x, cab.y);
+            ctx.stroke();
+
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(cab.spawnX, 0);
+            ctx.bezierCurveTo(cab.spawnX, midY, cab.x, midY + 15, cab.x, cab.y);
+            ctx.stroke();
+
+            const w = 44;
+            const h = 18;
+            ctx.fillStyle = 'var(--accent-coral)';
+            ctx.shadowColor = 'var(--accent-coral)';
+            ctx.shadowBlur = 8;
+            ctx.beginPath();
+            ctx.roundRect(cab.x - w/2, cab.y - h/2, w, h, 4);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            ctx.fillStyle = '#FFDD00';
+            ctx.fillRect(cab.x - 14, cab.y + h/2, 3, 3);
+            ctx.fillRect(cab.x - 4, cab.y + h/2, 3, 3);
+            ctx.fillRect(cab.x + 6, cab.y + h/2, 3, 3);
+
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 9px "Fira Code", monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(cab.label, cab.x, cab.y);
+        });
+
+        if (this.portsGame.isGameOver) {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+            ctx.fillRect(0, 0, 680, 260);
+
+            ctx.fillStyle = '#FF3366';
+            ctx.font = 'bold 24px "Clash Grotesk", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('SHORT CIRCUIT / GAME OVER', 340, 110);
+
+            ctx.fillStyle = '#e2e2e8';
+            ctx.font = '12px "Fira Code", monospace';
+            ctx.fillText('Port sockets integrity lost. Try again to build memory!', 340, 145);
+
+            this.drawOverlayButtonPorts('RESTART OPERATION', 340, 180);
+        }
+
+        if (this.portsGame.isVictory) {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+            ctx.fillRect(0, 0, 680, 260);
+
+            ctx.fillStyle = '#00FF66';
+            ctx.font = 'bold 24px "Clash Grotesk", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('PORT MASTER // MEMORY CAPTURED!', 340, 100);
+
+            ctx.fillStyle = '#e2e2e8';
+            ctx.font = '12px "Fira Code", monospace';
+            ctx.fillText('Congratulations! You correctly mapped all TCP/UDP connections!', 340, 135);
+
+            this.drawOverlayButtonPorts('CONTINUE TO MENU', 340, 175);
+        }
+    }
+
+    drawOverlayButtonPorts(text, x, y) {
+        const ctx = this.portsGame.ctx;
+        const w = 180;
+        const h = 30;
+
+        const mx = this.portsGame.mousePos.x;
+        const my = this.portsGame.mousePos.y;
+        const isHover = mx >= x - w/2 && mx <= x + w/2 && my >= y - h/2 && my <= y + h/2;
+
+        ctx.fillStyle = isHover ? 'var(--accent-coral)' : 'rgba(255, 255, 255, 0.05)';
+        ctx.strokeStyle = 'var(--accent-coral)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.roundRect(x - w/2, y - h/2, w, h, 4);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = isHover ? '#fff' : 'var(--text-primary)';
+        ctx.font = 'bold 10px "Fira Code", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, x, y);
+
+        if (!this.portsGame.clickBound) {
+            this.portsGame.clickBound = true;
+            this.portsGame.canvas.addEventListener('click', (e) => {
+                if (!this.portsGame.isGameOver && !this.portsGame.isVictory) return;
+                const rect = this.portsGame.canvas.getBoundingClientRect();
+                const clickX = ((e.clientX - rect.left) / rect.width) * 680;
+                const clickY = ((e.clientY - rect.top) / rect.height) * 260;
+
+                if (clickX >= 340 - w/2 && clickX <= 340 + w/2 && clickY >= y - h/2 && clickY <= y + h/2) {
+                    if (this.soundEnabled) {
+                        this.audio.playBleep(600, 0.06);
+                    }
+                    if (this.portsGame.isGameOver) {
+                        this.runPortsGame();
+                    } else if (this.portsGame.isVictory) {
+                        this.switchMode('menu');
+                    }
+                }
+            });
+        }
+    }
+
     moveCourierPlayer(dir) {
         if (this.courier.isGameOver || this.courier.isVictory) return;
         let newTrack = this.courier.player.track + dir;
@@ -1923,6 +2424,7 @@ class OsiGame {
     /* --- DESTRUCTOR --- */
     destroy() {
         this.stopCourierLoop();
+        this.stopPortsLoop();
         this.removeKeyboardListener();
         this.audio.destroy();
     }
