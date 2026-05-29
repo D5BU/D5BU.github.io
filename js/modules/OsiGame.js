@@ -358,8 +358,9 @@ class OsiGame {
     }
 
     switchMode(mode) {
-        // Halt any ongoing animation cycles
+        // Halt any ongoing animation cycles and keyboard listeners
         this.stopCourierLoop();
+        this.removeKeyboardListener();
 
         // Manage active button styles
         [this.btnMenu, this.btnCourier, this.btnHeist].forEach(btn => btn.classList.remove('active'));
@@ -411,10 +412,7 @@ class OsiGame {
 
     /* --- COURIER ARCADE MODE --- */
     loadCourierScreen() {
-        if (this.keyboardHandler) {
-            window.removeEventListener('keydown', this.keyboardHandler);
-            this.keyboardHandler = null;
-        }
+        this.removeKeyboardListener();
         this.courier.score = 0;
         this.courier.distance = 0;
         this.courier.currentLayer = 7;
@@ -517,6 +515,9 @@ class OsiGame {
             cancelAnimationFrame(this.courier.animationFrame);
             this.courier.animationFrame = null;
         }
+    }
+
+    removeKeyboardListener() {
         if (this.keyboardHandler) {
             window.removeEventListener('keydown', this.keyboardHandler);
             this.keyboardHandler = null;
@@ -1287,6 +1288,7 @@ class OsiGame {
     /* --- DESTRUCTOR --- */
     destroy() {
         this.stopCourierLoop();
+        this.removeKeyboardListener();
         this.audio.destroy();
     }
 }
