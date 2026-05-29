@@ -895,10 +895,17 @@ class OsiGame {
         this.stopCourierLoop();
         this.removeKeyboardListener();
 
+        this.courier.isVictory = true;
+        this.courier.dialogueActive = true;
+
         if (this.soundEnabled) {
             this.audio.playSuccess();
         }
 
+        this.showCourierDialogueStep(0);
+    }
+
+    showCourierChronicleVictoryScreen() {
         this.screenMount.innerHTML = `
             <div style="text-align: left; width: 100%; max-width: 580px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.2rem; font-family: 'Satoshi', sans-serif;">
                 <h3 style="font-family: 'Clash Grotesk', sans-serif; font-size: 1.8rem; color: #00FF66; text-transform: uppercase; margin: 0; letter-spacing: 0.05em; display: flex; align-items: center; gap: 10px;">
