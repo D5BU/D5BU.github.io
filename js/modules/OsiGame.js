@@ -478,8 +478,15 @@ class OsiGame {
             <div style="display: flex; flex-direction: column; width: 100%; height: 100%; position: relative; padding: 1rem;">
                 
                 <!-- Game HUD -->
-                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code', monospace; font-size: 11px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; margin-bottom: 8px;">
+                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code', monospace; font-size: 11px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; margin-bottom: 8px; align-items: center; flex-wrap: wrap; gap: 10px;">
                     <div>LAYER: <strong id="courier-hud-layer" style="color: var(--accent-coral);">7 (Application)</strong></div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>PROGRESS:</span>
+                        <div style="width: 80px; height: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; display: inline-block;">
+                            <div id="courier-hud-progress-fill" style="width: 0%; height: 100%; background: var(--accent-coral); transition: width 0.1s;"></div>
+                        </div>
+                        <span id="courier-hud-progress-pct">0%</span>
+                    </div>
                     <div>HEADER PAYLOAD: <span id="courier-hud-headers" style="color: #00FF66;">[None]</span></div>
                     <div>SCORE: <strong id="courier-hud-score">0</strong></div>
                 </div>
@@ -622,11 +629,19 @@ class OsiGame {
             }
         });
 
+        // Check if header is missing near the end of progress
+        const reqHeader = this.getLayerHeaderName(this.courier.currentLayer);
+        const hasHeader = this.courier.headersCollected.includes(reqHeader) || reqHeader === 'BITS' || reqHeader === 'NONE';
+        
+        if (this.courier.layerProgress > 70 && !hasHeader) {
+            const tipEl = DOM.get('#courier-layer-tip');
+            if (tipEl) {
+                tipEl.innerHTML = `<span style="color:#FF3366; font-weight:bold;">⚠️ HEADER MISSING!</span> You MUST collect the green <strong>${reqHeader}</strong> header block! Without it, you cannot transition, and the progress bar will loop back to 0!`;
+            }
+        }
+
         // Layer Progression logic
         if (this.courier.layerProgress >= 100) {
-            const currentRequiredHeader = this.getLayerHeaderName(this.courier.currentLayer);
-            const hasHeader = this.courier.headersCollected.includes(currentRequiredHeader) || currentRequiredHeader === 'NONE';
-            
             if (hasHeader) {
                 if (this.courier.currentLayer > 1) {
                     this.courier.currentLayer--;
@@ -651,6 +666,9 @@ class OsiGame {
         const scoreDiv = DOM.get('#courier-hud-score');
         const headersDiv = DOM.get('#courier-hud-headers');
         const layerDiv = DOM.get('#courier-hud-layer');
+        const progressFill = DOM.get('#courier-hud-progress-fill');
+        const progressPct = DOM.get('#courier-hud-progress-pct');
+        
         if (scoreDiv) scoreDiv.textContent = this.courier.score;
         if (headersDiv) {
             headersDiv.textContent = this.courier.headersCollected.length > 0 
@@ -658,6 +676,8 @@ class OsiGame {
                 : '[None]';
         }
         if (layerDiv) layerDiv.textContent = `${this.courier.currentLayer} (${this.getLayerName(this.courier.currentLayer)})`;
+        if (progressFill) progressFill.style.width = `${this.courier.layerProgress}%`;
+        if (progressPct) progressPct.textContent = `${this.courier.layerProgress}%`;
     }
 
     getLayerName(layer) {
