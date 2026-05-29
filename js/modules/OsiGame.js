@@ -544,6 +544,119 @@ class OsiGame {
         this.startCourierLoop();
     }
 
+    loadCourierVictoryScreen() {
+        this.stopCourierLoop();
+        this.removeKeyboardListener();
+
+        if (this.soundEnabled) {
+            this.audio.playSuccess();
+        }
+
+        this.screenMount.innerHTML = `
+            <div style="text-align: left; width: 100%; max-width: 580px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.2rem; font-family: 'Satoshi', sans-serif;">
+                <h3 style="font-family: 'Clash Grotesk', sans-serif; font-size: 1.8rem; color: #00FF66; text-transform: uppercase; margin: 0; letter-spacing: 0.05em; display: flex; align-items: center; gap: 10px;">
+                    🔓 Transaction Success // Packet Delivered!
+                </h3>
+                
+                <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.6; margin: 0;">
+                    Congratulations! You successfully piloted <strong>Packy</strong> through the entire network stack. Here is the chronicle of how your data was wrapped, routed, and serialized:
+                </p>
+
+                <!-- Scrollable Journey Container -->
+                <div style="max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 8px; border: 1px solid rgba(255,255,255,0.05); background: #030304; padding: 12px; border-radius: 4px;">
+                    
+                    <!-- L7 -->
+                    <div style="border-left: 2px solid var(--accent-coral); padding-left: 10px;">
+                        <h4 style="font-size: 12px; font-family: 'Clash Grotesk', sans-serif; color: var(--text-primary); margin: 0 0 4px 0; text-transform: uppercase;">
+                            Layer 7: Application <span style="color: #00FF66; font-family: monospace; font-size: 10px; margin-left: 6px;">[AH ATTACHED]</span>
+                        </h4>
+                        <p style="font-size: 11px; color: var(--text-secondary); margin: 0; line-height: 1.5;">
+                            Packy was initialized at the User Interface. You gathered the raw HTTP application data and stamped the **Application Header (AH)** to initiate the request payload.
+                        </p>
+                    </div>
+
+                    <!-- L6 -->
+                    <div style="border-left: 2px solid var(--accent-coral); padding-left: 10px;">
+                        <h4 style="font-size: 12px; font-family: 'Clash Grotesk', sans-serif; color: var(--text-primary); margin: 0 0 4px 0; text-transform: uppercase;">
+                            Layer 6: Presentation <span style="color: #00FF66; font-family: monospace; font-size: 10px; margin-left: 6px;">[PH ATTACHED]</span>
+                        </h4>
+                        <p style="font-size: 11px; color: var(--text-secondary); margin: 0; line-height: 1.5;">
+                            Packy entered the translation layer. The raw data was standardized, compressed, and encrypted (using SSL/TLS keys), adding the **Presentation Header (PH)**.
+                        </p>
+                    </div>
+
+                    <!-- L5 -->
+                    <div style="border-left: 2px solid var(--accent-coral); padding-left: 10px;">
+                        <h4 style="font-size: 12px; font-family: 'Clash Grotesk', sans-serif; color: var(--text-primary); margin: 0 0 4px 0; text-transform: uppercase;">
+                            Layer 5: Session <span style="color: #00FF66; font-family: monospace; font-size: 10px; margin-left: 6px;">[SH ATTACHED]</span>
+                        </h4>
+                        <p style="font-size: 11px; color: var(--text-secondary); margin: 0; line-height: 1.5;">
+                            To manage dialogue checkpoints, Packy established a logical session connection with the target server, appending the **Session Header (SH)**.
+                        </p>
+                    </div>
+
+                    <!-- L4 -->
+                    <div style="border-left: 2px solid var(--accent-coral); padding-left: 10px;">
+                        <h4 style="font-size: 12px; font-family: 'Clash Grotesk', sans-serif; color: var(--text-primary); margin: 0 0 4px 0; text-transform: uppercase;">
+                            Layer 4: Transport <span style="color: #00FF66; font-family: monospace; font-size: 10px; margin-left: 6px;">[TH ATTACHED]</span>
+                        </h4>
+                        <p style="font-size: 11px; color: var(--text-secondary); margin: 0; line-height: 1.5;">
+                            Packy's stream was segmented, and the **Transport Header (TH)** set target TCP ports (e.g. 443) and sequence numbers to guarantee ordered delivery.
+                        </p>
+                    </div>
+
+                    <!-- L3 -->
+                    <div style="border-left: 2px solid var(--accent-coral); padding-left: 10px;">
+                        <h4 style="font-size: 12px; font-family: 'Clash Grotesk', sans-serif; color: var(--text-primary); margin: 0 0 4px 0; text-transform: uppercase;">
+                            Layer 3: Network <span style="color: #00FF66; font-family: monospace; font-size: 10px; margin-left: 6px;">[NH ATTACHED]</span>
+                        </h4>
+                        <p style="font-size: 11px; color: var(--text-secondary); margin: 0; line-height: 1.5;">
+                            Packy was packed inside an IP datagram. Stamping source and destination IP addresses, the **Network Header (NH)** enabled routing across network hops.
+                        </p>
+                    </div>
+
+                    <!-- L2 -->
+                    <div style="border-left: 2px solid var(--accent-coral); padding-left: 10px;">
+                        <h4 style="font-size: 12px; font-family: 'Clash Grotesk', sans-serif; color: var(--text-primary); margin: 0 0 4px 0; text-transform: uppercase;">
+                            Layer 2: Data Link <span style="color: #00FF66; font-family: monospace; font-size: 10px; margin-left: 6px;">[DH ATTACHED]</span>
+                        </h4>
+                        <p style="font-size: 11px; color: var(--text-secondary); margin: 0; line-height: 1.5;">
+                            Packy was framed. The **Data Link Header (DH)** was attached, adding target physical MAC addresses to hop from node to node on the local switch.
+                        </p>
+                    </div>
+
+                    <!-- L1 -->
+                    <div style="border-left: 2px solid #00FF66; padding-left: 10px;">
+                        <h4 style="font-size: 12px; font-family: 'Clash Grotesk', sans-serif; color: #00FF66; margin: 0 0 4px 0; text-transform: uppercase;">
+                            Layer 1: Physical <span style="color: #00FF66; font-family: monospace; font-size: 10px; margin-left: 6px;">[BITS SERIALIZED]</span>
+                        </h4>
+                        <p style="font-size: 11px; color: var(--text-secondary); margin: 0; line-height: 1.5;">
+                            Physical Layer reached! The entire structured frame was serialized into raw electric voltages and light pulses (**BITS**), traveling down wire boundaries.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; margin-top: 0.2rem;">
+                    <div style="font-family: 'Fira Code', monospace; font-size: 12px; color: var(--text-secondary);">
+                        Final Score: <strong style="color: #00FF66;">${this.courier.score}</strong>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button id="victory-btn-replay" class="game-hud-btn" style="background: var(--accent-coral); color: white; border-color: var(--accent-coral); padding: 8px 16px;">Run Again</button>
+                        <button id="victory-btn-menu" class="game-hud-btn" style="padding: 8px 16px;">Main Menu</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        DOM.get('#victory-btn-replay').addEventListener('click', () => {
+            this.runCourierArcade();
+        });
+        DOM.get('#victory-btn-menu').addEventListener('click', () => {
+            this.switchMode('menu');
+        });
+    }
+
     moveCourierPlayer(dir) {
         if (this.courier.isGameOver || this.courier.isVictory) return;
         let newTrack = this.courier.player.track + dir;
@@ -657,10 +770,7 @@ class OsiGame {
                     }
                 } else {
                     // Reached physical layer & finished
-                    this.courier.isVictory = true;
-                    if (this.soundEnabled) {
-                        this.audio.playSuccess();
-                    }
+                    this.loadCourierVictoryScreen();
                 }
             }
         }
