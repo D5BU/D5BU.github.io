@@ -427,6 +427,7 @@ class OsiGame {
                         <button id="game-btn-mode-menu" class="game-hud-btn active">Menu</button>
                         <button id="game-btn-mode-courier" class="game-hud-btn">1. Packet Courier</button>
                         <button id="game-btn-mode-heist" class="game-hud-btn">2. Cyber Heist</button>
+                        <button id="game-btn-mode-ports" class="game-hud-btn">3. Port Connector</button>
                     </div>
                 </div>
 
@@ -443,6 +444,7 @@ class OsiGame {
         this.btnMenu = DOM.get('#game-btn-mode-menu');
         this.btnCourier = DOM.get('#game-btn-mode-courier');
         this.btnHeist = DOM.get('#game-btn-mode-heist');
+        this.btnPorts = DOM.get('#game-btn-mode-ports');
         this.screenMount = DOM.get('#game-screen-mount');
 
         // Nav click events
@@ -450,6 +452,7 @@ class OsiGame {
         this.btnMenu.addEventListener('click', () => this.switchMode('menu'));
         this.btnCourier.addEventListener('click', () => this.switchMode('courier'));
         this.btnHeist.addEventListener('click', () => this.switchMode('heist'));
+        this.btnPorts.addEventListener('click', () => this.switchMode('ports'));
 
         // Load main menu
         this.switchMode('menu');
@@ -472,6 +475,7 @@ class OsiGame {
     switchMode(mode) {
         // Halt any ongoing animation cycles and keyboard listeners
         this.stopCourierLoop();
+        this.stopPortsLoop();
         this.removeKeyboardListener();
 
         this.courier.dialogueActive = false;
@@ -482,10 +486,13 @@ class OsiGame {
         }
 
         // Manage active button styles
-        [this.btnMenu, this.btnCourier, this.btnHeist].forEach(btn => btn.classList.remove('active'));
-        if (mode === 'menu') this.btnMenu.classList.add('active');
-        if (mode === 'courier') this.btnCourier.classList.add('active');
-        if (mode === 'heist') this.btnHeist.classList.add('active');
+        [this.btnMenu, this.btnCourier, this.btnHeist, this.btnPorts].forEach(btn => {
+            if (btn) btn.classList.remove('active');
+        });
+        if (mode === 'menu' && this.btnMenu) this.btnMenu.classList.add('active');
+        if (mode === 'courier' && this.btnCourier) this.btnCourier.classList.add('active');
+        if (mode === 'heist' && this.btnHeist) this.btnHeist.classList.add('active');
+        if (mode === 'ports' && this.btnPorts) this.btnPorts.classList.add('active');
 
         this.currentMode = mode;
         
@@ -495,6 +502,8 @@ class OsiGame {
             this.loadCourierScreen();
         } else if (mode === 'heist') {
             this.loadHeistScreen();
+        } else if (mode === 'ports') {
+            this.loadPortsScreen();
         }
 
         if (this.soundEnabled) {
