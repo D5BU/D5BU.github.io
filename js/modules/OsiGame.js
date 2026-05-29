@@ -413,6 +413,54 @@ class OsiGame {
     /* --- COURIER ARCADE MODE --- */
     loadCourierScreen() {
         this.removeKeyboardListener();
+        this.screenMount.innerHTML = `
+            <div style="text-align: left; max-width: 550px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.2rem; font-family: 'Satoshi', sans-serif;">
+                <h3 style="font-family: 'Clash Grotesk', sans-serif; font-size: 1.6rem; color: var(--accent-coral); text-transform: uppercase; margin: 0; letter-spacing: 0.05em;">
+                    Operation: Packet Courier
+                </h3>
+                
+                <div style="font-size: 13px; line-height: 1.6; color: var(--text-secondary); display: flex; flex-direction: column; gap: 12px;">
+                    <p style="margin: 0;">
+                        <strong>What are we?</strong><br>
+                        You are <strong>\"Packy\"</strong>, a data packet traveling down the local system's network stack, preparing to be transmitted across the internet.
+                    </p>
+                    <p style="margin: 0;">
+                        <strong>Objective:</strong><br>
+                        Safely package your payload by descending through all <strong>7 layers of the OSI model</strong> (from Layer 7: Application down to Layer 1: Physical).
+                    </p>
+                    <ul style="list-style: none; padding-left: 0; display: flex; flex-direction: column; gap: 8px; margin: 0;">
+                        <li style="display: flex; align-items: start; gap: 8px;">
+                            <span style="color: #00FF66;">🟢</span>
+                            <span><strong style="color: #00FF66; text-transform: uppercase;">Do:</strong> Collect the green headers for the current layer (e.g., <strong>AH</strong> for Application, <strong>PH</strong> for Presentation) to advance your transmission progress to 100%.</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 8px;">
+                            <span style="color: #FF3366;">🔴</span>
+                            <span><strong style="color: #FF3366; text-transform: uppercase;">Avoid:</strong> Red obstacle blocks representing network hazards (like <code>DROP</code>, <code>OVERFLOW</code>, or <code>NOISE</code>) which will drop your packet and terminate the run.</span>
+                        </li>
+                    </ul>
+                    <p style="margin: 0;">
+                        <strong>Controls:</strong><br>
+                        Press <strong>W / S</strong> or the <strong>Up / Down Arrow Keys</strong> on your keyboard to switch lanes. You can also click the virtual buttons on-screen.
+                    </p>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 0.5rem;">
+                    <button id="briefing-btn-start" class="game-hud-btn" style="background: var(--accent-coral); color: white; border-color: var(--accent-coral); padding: 10px 24px;">Start Transmission</button>
+                    <button id="briefing-btn-back" class="game-hud-btn" style="padding: 10px 20px;">Back to Menu</button>
+                </div>
+            </div>
+        `;
+
+        DOM.get('#briefing-btn-start').addEventListener('click', () => {
+            this.runCourierArcade();
+        });
+        DOM.get('#briefing-btn-back').addEventListener('click', () => {
+            this.switchMode('menu');
+        });
+    }
+
+    runCourierArcade() {
+        this.removeKeyboardListener();
         this.courier.score = 0;
         this.courier.distance = 0;
         this.courier.currentLayer = 7;
@@ -836,7 +884,7 @@ class OsiGame {
                 // Hitbox check
                 if (mx >= cx - 70 && mx <= cx + 70 && my >= cy - 16 && my <= cy + 16) {
                     this.overlayBtnRegistered = false;
-                    this.loadCourierScreen();
+                    this.runCourierArcade();
                 }
             });
         }
