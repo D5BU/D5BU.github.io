@@ -682,6 +682,27 @@ class OsiGame {
                 expression: "worried",
                 text: "We reached Layer 3, the Network Layer—the global router! Now segmented, I needed to know how to travel across the internet. This layer packed me inside an IP datagram and stamped the Network Header (NH), containing your machine's source IP and the server's target IP. This is where physical routers inspected my NH to prevent routing loops (which trigger DROP hazards) and direct me toward the destination!",
                 stack: ["NH", "TH", "SH", "PH", "AH", "payload"]
+            },
+            {
+                title: "Layer 2: Data Link Layer",
+                speaker: "Packy",
+                expression: "happy",
+                text: "Almost there! Layer 2, the Data Link Layer, prepared me for local hardware transit. We framed me into an Ethernet frame by attaching the Data Link Header (DH). This header specifies physical MAC addresses: your network card's MAC and the next-hop hardware device (like your router or switch). This local node-to-node framing helped us bypass local switch collision drops!",
+                stack: ["DH", "NH", "TH", "SH", "PH", "AH", "payload"]
+            },
+            {
+                title: "Layer 1: Physical Layer",
+                speaker: "Packy",
+                expression: "celebrate",
+                text: "Finally, we hit Layer 1, the Physical Layer! Here, my frame structure was converted and serialized into raw BITS (1s and 0s). These bits were pulsed as electric voltages down copper lines, laser flashes down fiber-optic cables, or radio waves through the air. The journey was complete! 🌎✨",
+                stack: ["bits"]
+            },
+            {
+                title: "Journey Complete!",
+                speaker: "Packy",
+                expression: "celebrate",
+                text: "And that is how a simple request turns into physical pulses traversing the globe! Together, we traveled from the user interface down to the physical wire. Thank you for being such an awesome pilot! Let's check out our final scorecard!",
+                stack: ["bits"]
             }
         ];
     }
