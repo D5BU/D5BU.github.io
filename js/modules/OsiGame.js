@@ -787,7 +787,11 @@ class OsiGame {
         const type = () => {
             if (!this.courier.dialogueActive) return;
             if (index < fullText.length) {
-                el.innerHTML += fullText[index++];
+                const char = fullText[index++];
+                el.innerHTML += char;
+                if (this.soundEnabled && index % 3 === 0 && char !== ' ') {
+                    this.audio.playBleep(350, 0.03, 'sine');
+                }
                 this.courier.dialogueTimeout = setTimeout(type, 18);
             } else {
                 this.courier.dialogueTimeout = null;
