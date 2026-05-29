@@ -821,6 +821,76 @@ class OsiGame {
         }).join('<span style="color:rgba(255,255,255,0.3); font-size:10px; font-weight:bold;">&lt;</span>');
     }
 
+    showCourierDialogueStep(slideIndex) {
+        const slides = this.getDialogueSlides();
+        if (slideIndex < 0 || slideIndex >= slides.length) {
+            this.showCourierChronicleVictoryScreen();
+            return;
+        }
+
+        this.courier.dialogueSlideIndex = slideIndex;
+        const slide = slides[slideIndex];
+
+        this.screenMount.innerHTML = `
+            <div style="width: 100%; max-width: 580px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.2rem; font-family: 'Satoshi', sans-serif;">
+                <h3 style="font-family: 'Clash Grotesk', sans-serif; font-size: 1.3rem; color: #00FF66; text-transform: uppercase; margin: 0; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: space-between;">
+                    <span>📂 Transmission Success // Narrative</span>
+                    <span style="font-family: monospace; font-size: 11px; color: var(--text-secondary);">${slideIndex + 1} / ${slides.length}</span>
+                </h3>
+                
+                <div class="dialogue-container">
+                    <div class="packy-avatar-box">
+                        ${this.drawPackyAvatarSvg(slide.expression)}
+                    </div>
+                    <div class="dialogue-bubble">
+                        <div style="font-family: 'Clash Grotesk', sans-serif; font-size: 12px; font-weight: bold; color: var(--accent-coral); text-transform: uppercase; letter-spacing: 0.05em;">
+                            ${slide.speaker} (${slide.title})
+                        </div>
+                        <div id="dialogue-text-content" style="color: var(--text-primary); font-size: 12px; line-height: 1.6; min-height: 90px; font-family: 'Satoshi', sans-serif;">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <div style="font-family: monospace; font-size: 10px; color: var(--text-secondary); text-transform: uppercase; font-weight: bold; text-align: center;">
+                        Active Encapsulation Stack:
+                    </div>
+                    <div class="encap-stack-container">
+                        ${this.drawEncapsulationStackHtml(slide.stack)}
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px; margin-top: 0.5rem;">
+                    <button id="dialogue-btn-skip" class="game-hud-btn" style="color: var(--text-secondary); border-color: rgba(255,255,255,0.05);">Skip Dialogue</button>
+                    <div style="display: flex; gap: 8px;">
+                        <button id="dialogue-btn-back" class="game-hud-btn" ${slideIndex === 0 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : ''}>◀ Back</button>
+                        <button id="dialogue-btn-next" class="game-hud-btn" style="background: var(--accent-coral); color: white; border-color: var(--accent-coral); min-width: 80px;">
+                            ${slideIndex === slides.length - 1 ? 'Finish 🏁' : 'Next ▶'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        this.typewriterDialogueText('dialogue-text-content', slide.text);
+
+        DOM.get('#dialogue-btn-skip').addEventListener('click', () => {
+            this.courier.dialogueActive = false;
+            if (this.courier.dialogueTimeout) clearTimeout(this.courier.dialogueTimeout);
+            this.showCourierChronicleVictoryScreen();
+        });
+
+        if (slideIndex > 0) {
+            DOM.get('#dialogue-btn-back').addEventListener('click', () => {
+                this.showCourierDialogueStep(slideIndex - 1);
+            });
+        }
+
+        DOM.get('#dialogue-btn-next').addEventListener('click', () => {
+            this.showCourierDialogueStep(slideIndex + 1);
+        });
+    }
+
     loadCourierVictoryScreen() {
         this.stopCourierLoop();
         this.removeKeyboardListener();
