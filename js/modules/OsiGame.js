@@ -457,6 +457,13 @@ class OsiGame {
         this.stopCourierLoop();
         this.removeKeyboardListener();
 
+        this.courier.dialogueActive = false;
+        this.courier.dialogueSlideIndex = 0;
+        if (this.courier.dialogueTimeout) {
+            clearTimeout(this.courier.dialogueTimeout);
+            this.courier.dialogueTimeout = null;
+        }
+
         // Manage active button styles
         [this.btnMenu, this.btnCourier, this.btnHeist].forEach(btn => btn.classList.remove('active'));
         if (mode === 'menu') this.btnMenu.classList.add('active');
