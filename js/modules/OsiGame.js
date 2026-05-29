@@ -467,6 +467,7 @@ class OsiGame {
         this.courier.layerProgress = 0;
         this.courier.isGameOver = false;
         this.courier.isVictory = false;
+        this.courier.speed = 4;
         this.courier.obstacles = [];
         this.courier.collectibles = [];
         this.courier.headersCollected = [];
@@ -585,9 +586,11 @@ class OsiGame {
         // Smooth Lerp Y position of player
         this.courier.player.y += (this.courier.player.targetY - this.courier.player.y) * 0.2;
 
-        // Update progress distance
-        this.courier.distance += 0.15;
-        this.courier.layerProgress = Math.min(100, Math.floor((this.courier.distance % 50) * 2));
+        // Update progress distance (cap at 50 to prevent modulo rollover and hold 100% until transition)
+        if (this.courier.distance < 50) {
+            this.courier.distance += 0.15;
+        }
+        this.courier.layerProgress = Math.min(100, Math.floor((this.courier.distance / 50) * 100));
 
         // Spawning
         this.courier.spawnTimer++;
