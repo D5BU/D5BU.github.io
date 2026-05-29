@@ -578,6 +578,7 @@ class OsiGame {
         this.courier.player.targetY = 130;
         this.courier.dialogueActive = false;
         this.courier.dialogueSlideIndex = 0;
+        this.courier.particles = [];
         if (this.courier.dialogueTimeout) {
             clearTimeout(this.courier.dialogueTimeout);
             this.courier.dialogueTimeout = null;
@@ -1066,6 +1067,20 @@ class OsiGame {
         // Smooth Lerp Y position of player
         this.courier.player.y += (this.courier.player.targetY - this.courier.player.y) * 0.2;
 
+        // Spawn and update trailing trail particles
+        if (!this.courier.particles) this.courier.particles = [];
+        this.courier.particles.push({
+            x: this.courier.player.x - this.courier.player.size / 2,
+            y: this.courier.player.y + (Math.random() - 0.5) * 8,
+            size: Math.random() * 3 + 2,
+            opacity: 1
+        });
+        this.courier.particles.forEach(p => {
+            p.x -= this.courier.speed * 0.7;
+            p.opacity -= 0.04;
+        });
+        this.courier.particles = this.courier.particles.filter(p => p.opacity > 0 && p.x > 0);
+
         // Update progress distance (cap at 50 to prevent modulo rollover and hold 100% until transition)
         if (this.courier.distance < 50) {
             this.courier.distance += 0.15;
@@ -1268,19 +1283,21 @@ class OsiGame {
         ctx.fillStyle = 'var(--accent-coral)';
         ctx.fillRect(0, 0, (this.courier.layerProgress / 100) * 680, 6);
 
-        // Draw Collectibles
+        // Draw Collectibles (Header Tags)
         this.courier.collectibles.forEach(col => {
+            const w = col.size * 1.8;
+            const h = col.size * 1.0;
             ctx.fillStyle = '#00FF66';
             ctx.shadowColor = '#00FF66';
             ctx.shadowBlur = 8;
             ctx.beginPath();
-            ctx.arc(col.x, col.y, col.size/2, 0, Math.PI * 2);
+            ctx.roundRect(col.x - w/2, col.y - h/2, w, h, 4);
             ctx.fill();
 
             // Label
             ctx.shadowBlur = 0;
-            ctx.fillStyle = '#000';
-            ctx.font = 'bold 8px Courier';
+            ctx.fillStyle = '#0b0b0c';
+            ctx.font = 'bold 9.5px "Fira Code", monospace';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(col.header, col.x, col.y);
@@ -1304,23 +1321,61 @@ class OsiGame {
             ctx.fillText(obs.type.substring(0, 4), obs.x, obs.y);
         });
 
+        // Draw trailing particles
+        if (this.courier.particles) {
+            this.courier.particles.forEach(p => {
+                ctx.fillStyle = `rgba(235, 89, 57, ${p.opacity})`; // var(--accent-coral)
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
         // Draw Player ("Packy")
         const px = this.courier.player.x;
         const py = this.courier.player.y;
         const ps = this.courier.player.size;
 
-        ctx.fillStyle = 'var(--text-primary)';
-        ctx.shadowColor = 'var(--text-primary)';
-        ctx.shadowBlur = 10;
-        ctx.fillRect(px - ps/2, py - ps/2, ps, ps);
-        ctx.shadowBlur = 0;
-
-        // Player face lines
-        ctx.strokeStyle = '#000';
+        // Draw Antennas
+        ctx.strokeStyle = 'var(--accent-coral)';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(px + 2, py - 4);
-        ctx.lineTo(px + 2, py + 4);
+        ctx.moveTo(px - 5, py - ps/2);
+        ctx.lineTo(px - 5, py - ps/2 - 4);
+        ctx.moveTo(px + 5, py - ps/2);
+        ctx.lineTo(px + 5, py - ps/2 - 4);
+        ctx.stroke();
+
+        ctx.fillStyle = 'var(--accent-coral)';
+        ctx.beginPath();
+        ctx.arc(px - 5, py - ps/2 - 5, 2, 0, Math.PI * 2);
+        ctx.arc(px + 5, py - ps/2 - 5, 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw Packet Body (rounded glassmorphic rect with neon outline)
+        ctx.strokeStyle = 'var(--accent-coral)';
+        ctx.fillStyle = 'rgba(235, 89, 57, 0.18)';
+        ctx.lineWidth = 2.5;
+        ctx.shadowColor = 'var(--accent-coral)';
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.roundRect(px - ps/2, py - ps/2, ps, ps, 5);
+        ctx.fill();
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+
+        // Draw Face inside Packet
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(px - 4, py - 2, 2.5, 0, Math.PI * 2); // Left Eye
+        ctx.arc(px + 4, py - 2, 2.5, 0, Math.PI * 2); // Right Eye
+        ctx.fill();
+
+        // Mouth (small smile)
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(px, py + 2, 3, 0, Math.PI);
         ctx.stroke();
 
         // Screen state overlays
