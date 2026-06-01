@@ -119,6 +119,19 @@ export default class Resume {
                                 <li>Embedded broad system-level security monitoring utilities.</li>
                             </ul>
                         </div>
+
+                        <div class="panel" style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3 style="color: var(--text-primary); font-size: 1.4rem;">SafeDelete Desktop</h3>
+                                <span class="badge" style="background: rgba(0,255,102,0.1); color: #00FF66; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem;">DISK FORENSICS</span>
+                            </div>
+                            <p class="text-secondary" style="font-size: 0.95rem;">A premium, native desktop cybersecurity lab and file shredding utility designed to visualize raw physical sector allocation and Shannon entropy patterns.</p>
+                            <ul style="list-style: disc; margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.4rem;">
+                                <li>Mapped deleted file nodes directly to 512-byte raw disk block arrays.</li>
+                                <li>Implemented secure overwrite overrides (Zero Fill, Random Noise, DoD 3-Pass, and DoD 7-Pass).</li>
+                                <li>Integrated a forensic recovery scanner to read and rebuild orphaned disk clusters.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
