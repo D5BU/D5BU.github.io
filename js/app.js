@@ -429,6 +429,11 @@ class App {
         document.body.style.overflow = 'hidden'; // lock background scrolling
     }
 
+    /**
+     * Opens a details view modal for a specified static project card.
+     * Generates responsive HTML containing technical architectures and fallback layouts.
+     * @param {string} projectTitle - The text title of the selected project card
+     */
     openProjectDetailsModal(projectTitle) {
         this.currentActiveModule = null;
         this.modalTitle.textContent = projectTitle;
