@@ -493,6 +493,53 @@ class App {
                         <li><strong>Secure Shredding Algorithms:</strong> Programmed secure sanitization overrides, conforming to international standards: Zero Fill, Random Noise, DoD 5220.22-M 3-Pass, and DoD 5220.22-M 7-Pass patterns.</li>
                         <li><strong>Entropy Analytics:</strong> Engineered Shannon entropy computation scans on target blocks to distinguish between encrypted, compressed, and plain-text file chunks.</li>
                     </ul>
+                    <h3 style="text-transform:uppercase; font-size:16px; color:var(--accent-taupe); border-bottom:1px solid var(--border-low-opacity); padding-bottom:8px; margin-top:10px;">Raw Sector Entropy Grid (Interactive Lab Simulation)</h3>
+                    <div style="background:rgba(0,0,0,0.4); border:1px solid var(--border-color); border-radius:6px; padding:15px;">
+                        <p style="font-size:12px; color:var(--text-secondary); margin-bottom:10px; font-family:'Fira Code',monospace;">
+                            Visual representation of 512-byte block sectors during a secure DOD-Pass overwrite cycle:
+                        </p>
+                        <div style="display:grid; grid-template-columns:repeat(16, 1fr); gap:4px; margin-bottom:12px;">
+                            <div style="aspect-ratio:1; background:var(--accent-coral); border-radius:2px; box-shadow:0 0 5px var(--accent-coral);" title="Sector 0x01: Active File Node"></div>
+                            <div style="aspect-ratio:1; background:var(--accent-coral); border-radius:2px; box-shadow:0 0 5px var(--accent-coral);" title="Sector 0x02: Active File Node"></div>
+                            <div style="aspect-ratio:1; background:var(--text-accent); border-radius:2px; box-shadow:0 0 5px var(--text-accent);" title="Sector 0x03: Encrypted Header"></div>
+                            <div style="aspect-ratio:1; background:#00FF66; border-radius:2px; box-shadow:0 0 5px #00FF66;" title="Sector 0x04: Shredded (Zero-Filled)"></div>
+                            <div style="aspect-ratio:1; background:#00FF66; border-radius:2px; box-shadow:0 0 5px #00FF66;" title="Sector 0x05: Shredded (Zero-Filled)"></div>
+                            <div style="aspect-ratio:1; background:rgba(255,255,255,0.1); border-radius:2px;" title="Sector 0x06: Free Space"></div>
+                            <div style="aspect-ratio:1; background:rgba(255,255,255,0.1); border-radius:2px;" title="Sector 0x07: Free Space"></div>
+                            <div style="aspect-ratio:1; background:var(--accent-coral); border-radius:2px; box-shadow:0 0 5px var(--accent-coral);" title="Sector 0x08: Active File Node"></div>
+                            <div style="aspect-ratio:1; background:var(--accent-coral); border-radius:2px; box-shadow:0 0 5px var(--accent-coral);" title="Sector 0x09: Active File Node"></div>
+                            <div style="aspect-ratio:1; background:var(--accent-taupe); border-radius:2px;" title="Sector 0x0A: Bad Sector"></div>
+                            <div style="aspect-ratio:1; background:#00FF66; border-radius:2px; box-shadow:0 0 5px #00FF66;" title="Sector 0x0B: Shredded (Random-Noise)"></div>
+                            <div style="aspect-ratio:1; background:#00FF66; border-radius:2px; box-shadow:0 0 5px #00FF66;" title="Sector 0x0C: Shredded (Random-Noise)"></div>
+                            <div style="aspect-ratio:1; background:#00FF66; border-radius:2px; box-shadow:0 0 5px #00FF66;" title="Sector 0x0D: Shredded (Random-Noise)"></div>
+                            <div style="aspect-ratio:1; background:rgba(255,255,255,0.1); border-radius:2px;" title="Sector 0x0E: Free Space"></div>
+                            <div style="aspect-ratio:1; background:rgba(255,255,255,0.1); border-radius:2px;" title="Sector 0x0F: Free Space"></div>
+                            <div style="aspect-ratio:1; background:var(--text-accent); border-radius:2px; box-shadow:0 0 5px var(--text-accent);" title="Sector 0x10: Master File Table"></div>
+                            
+                            <div style="aspect-ratio:1; background:#00FF66; border-radius:2px; box-shadow:0 0 5px #00FF66;"></div>
+                            <div style="aspect-ratio:1; background:#00FF66; border-radius:2px; box-shadow:0 0 5px #00FF66;"></div>
+                            <div style="aspect-ratio:1; background:#00FF66; border-radius:2px; box-shadow:0 0 5px #00FF66;"></div>
+                            <div style="aspect-ratio:1; background:rgba(255,255,255,0.1); border-radius:2px;"></div>
+                            <div style="aspect-ratio:1; background:rgba(255,255,255,0.1); border-radius:2px;"></div>
+                            <div style="aspect-ratio:1; background:rgba(255,255,255,0.1); border-radius:2px;"></div>
+                            <div style="aspect-ratio:1; background:var(--accent-coral); border-radius:2px; box-shadow:0 0 5px var(--accent-coral);"></div>
+                            <div style="aspect-ratio:1; background:var(--accent-coral); border-radius:2px; box-shadow:0 0 5px var(--accent-coral);"></div>
+                            <div style="aspect-ratio:1; background:var(--accent-coral); border-radius:2px; box-shadow:0 0 5px var(--accent-coral);"></div>
+                            <div style="aspect-ratio:1; background:var(--accent-coral); border-radius:2px; box-shadow:0 0 5px var(--accent-coral);"></div>
+                            <div style="aspect-ratio:1; background:rgba(255,255,255,0.1); border-radius:2px;"></div>
+                            <div style="aspect-ratio:1; background:rgba(255,255,255,0.1); border-radius:2px;"></div>
+                            <div style="aspect-ratio:1; background:var(--text-accent); border-radius:2px; box-shadow:0 0 5px var(--text-accent);"></div>
+                            <div style="aspect-ratio:1; background:var(--text-accent); border-radius:2px; box-shadow:0 0 5px var(--text-accent);"></div>
+                            <div style="aspect-ratio:1; background:#00FF66; border-radius:2px; box-shadow:0 0 5px #00FF66;"></div>
+                            <div style="aspect-ratio:1; background:#00FF66; border-radius:2px; box-shadow:0 0 5px #00FF66;"></div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:11px; font-family:'Fira Code',monospace; flex-wrap:wrap; gap:8px;">
+                            <span style="display:inline-flex; align-items:center; gap:4px;"><span style="display:inline-block; width:8px; height:8px; background:var(--accent-coral); border-radius:50%;"></span> Active File</span>
+                            <span style="display:inline-flex; align-items:center; gap:4px;"><span style="display:inline-block; width:8px; height:8px; background:var(--text-accent); border-radius:50%;"></span> System Table</span>
+                            <span style="display:inline-flex; align-items:center; gap:4px;"><span style="display:inline-block; width:8px; height:8px; background:#00FF66; border-radius:50%;"></span> Sanitized (Overwritten)</span>
+                            <span style="display:inline-flex; align-items:center; gap:4px;"><span style="display:inline-block; width:8px; height:8px; background:rgba(255,255,255,0.1); border-radius:50%;"></span> Free Sector</span>
+                        </div>
+                    </div>
                     <div style="margin-top:15px; display:flex; justify-content:flex-start;">
                         <a href="https://github.com/D5BU/RAWDISK" target="_blank" rel="noopener noreferrer" class="btn-pill" style="display:inline-flex; align-items:center; gap:8px; text-decoration:none;">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
