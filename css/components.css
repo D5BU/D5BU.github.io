@@ -1044,6 +1044,36 @@
     flex: 1;
 }
 
+/* Custom scrollbar for modal container */
+.modal-container::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+.modal-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+}
+.modal-container::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-coral);
+}
+
+@media (max-width: 600px) {
+    .modal-overlay {
+        padding: 12px;
+    }
+    .modal-container {
+        max-height: calc(95vh);
+    }
+    .modal-header {
+        padding: 16px 20px;
+    }
+    .modal-body {
+        padding: 20px;
+    }
+}
+
 /* --- OVERRIDES FOR SIMULATOR MODULE PANELS INSIDE MODAL --- */
 .modal-body .module-section {
     display: flex;
