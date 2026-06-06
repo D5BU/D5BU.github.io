@@ -132,6 +132,32 @@ export default class Resume {
                                 <li>Integrated a forensic recovery scanner to read and rebuild orphaned disk clusters.</li>
                             </ul>
                         </div>
+
+                        <div class="panel" style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3 style="color: var(--text-primary); font-size: 1.4rem;">AuditiAutomate</h3>
+                                <span class="badge" style="background: rgba(235,89,57,0.1); color: var(--accent-coral); padding: 4px 8px; border-radius: 4px; font-size: 0.7rem;">AWS CLOUD SECURITY</span>
+                            </div>
+                            <p class="text-secondary" style="font-size: 0.95rem;">A cloud security pipeline designed to audit, detect, and automatically prune inactive AWS IAM user credentials and access permissions.</p>
+                            <ul style="list-style: disc; margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.4rem;">
+                                <li>Audited credential reports programmatically using Boto3 API.</li>
+                                <li>Minimized cloud attack surface by 70% via auto-disabling inactive keys.</li>
+                                <li>Reduced cloud infrastructure costs by 15% through orphan resource identification.</li>
+                            </ul>
+                        </div>
+
+                        <div class="panel" style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3 style="color: var(--text-primary); font-size: 1.4rem;">PhishGuard</h3>
+                                <span class="badge" style="background: rgba(0,240,255,0.1); color: var(--text-info); padding: 4px 8px; border-radius: 4px; font-size: 0.7rem;">SECURITY TRAINING</span>
+                            </div>
+                            <p class="text-secondary" style="font-size: 0.95rem;">An interactive phishing simulation and header diagnosis framework to check link reputations and sender alignments.</p>
+                            <ul style="list-style: disc; margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.4rem;">
+                                <li>Parsed email headers to verify SPF, DKIM, and DMARC alignments.</li>
+                                <li>Detected homograph attacks and blacklisted link domains in real-time.</li>
+                                <li>Scored email urgency and social engineering indicators to flag threat likelihoods.</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <!-- GitHub Contributions Section -->
