@@ -109,7 +109,7 @@ class OsiModel {
                     <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: stretch;">
                         
                         <!-- LEFT STACK FLOW (VISUAL REPRESENTATION BASED ON TEXTBOOK DIAGRAM) -->
-                        <div class="panel" style="flex: 2; min-width: 480px; background: #060607; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                        <div class="panel osi-panel-left" style="flex: 2; min-width: 480px; background: #060607; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
                             <!-- Scanline CRT Effect Overlay -->
                             <div style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%); background-size: 100% 4px; z-index: 5;"></div>
                             
@@ -117,8 +117,8 @@ class OsiModel {
                             <div style="text-align: center; color: var(--accent-taupe); font-size: 10px; text-transform: uppercase; font-family: 'Fira Code', monospace; letter-spacing: 0.1em; margin-bottom: 1.2rem;">
                                 Physical Transmission Subnet Medium
                             </div>
-
-                            <div style="position: relative; display: grid; grid-template-columns: 1fr 0.8fr 1fr; gap: 10px; min-height: 420px; align-items: stretch;">
+ 
+                            <div class="osi-grid" style="position: relative; display: grid; grid-template-columns: 1fr 0.8fr 1fr; gap: 10px; min-height: 420px; align-items: stretch;">
                                 
                                 <!-- HOST A (Source) -->
                                 <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 6px; z-index: 2;">
@@ -131,7 +131,7 @@ class OsiModel {
                                     <div id="osi-layer-a-2" class="osi-layer-node" data-layer="2" data-host="A"><span>2. Data Link</span><small>Frame</small></div>
                                     <div id="osi-layer-a-1" class="osi-layer-node" data-layer="1" data-host="A"><span>1. Physical</span><small>Bits</small></div>
                                 </div>
-
+ 
                                 <!-- ROUTER (Communication Subnet Boundary) -->
                                 <div style="display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; background: rgba(183, 171, 152, 0.02); border: 1px dashed rgba(183, 171, 152, 0.15); padding: 8px; border-radius: 4px; z-index: 2;">
                                     <div style="text-align: center; font-weight: bold; font-size: 10px; text-transform: uppercase; color: var(--accent-taupe); margin-bottom: auto; line-height: 1.3;">Subnet<br>Router</div>
@@ -139,7 +139,7 @@ class OsiModel {
                                     <div id="osi-layer-r-2" class="osi-layer-node" data-layer="2" data-host="R" style="height: 48px;"><span>2. Data Link</span><small>Frame</small></div>
                                     <div id="osi-layer-r-1" class="osi-layer-node" data-layer="1" data-host="R" style="height: 48px;"><span>1. Physical</span><small>Bits</small></div>
                                 </div>
-
+ 
                                 <!-- HOST B (Destination) -->
                                 <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 6px; z-index: 2;">
                                     <div style="text-align: center; font-weight: bold; font-size: 11px; text-transform: uppercase; color: var(--text-primary); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px;">Host B (Receiver)</div>
@@ -151,7 +151,7 @@ class OsiModel {
                                     <div id="osi-layer-b-2" class="osi-layer-node" data-layer="2" data-host="B"><span>2. Data Link</span><small>Frame</small></div>
                                     <div id="osi-layer-b-1" class="osi-layer-node" data-layer="1" data-host="B"><span>1. Physical</span><small>Bits</small></div>
                                 </div>
-
+ 
                                 <!-- SVG overlay for Peer boundaries and links (mimicking dashed arrows in diagram) -->
                                 <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;">
                                     <!-- Logical Peer boundaries (Dashed horizontal lines) -->
@@ -168,9 +168,9 @@ class OsiModel {
                                 </svg>
                             </div>
                         </div>
-
+ 
                         <!-- RIGHT INFO / STATUS MONITOR & PDU GROWING WRAPPER -->
-                        <div style="flex: 1.5; min-width: 320px; display: flex; flex-direction: column; gap: 1rem;">
+                        <div class="osi-panel-right" style="flex: 1.5; min-width: 320px; display: flex; flex-direction: column; gap: 1rem;">
                             
                             <!-- PDU DYNAMIC STRUCTURE ("PACKET GROWTH" PANEL) -->
                             <div class="panel" style="background: #060607; border: 1px solid rgba(255,255,255,0.05); padding: 1.2rem;">

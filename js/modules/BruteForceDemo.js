@@ -33,7 +33,7 @@ class BruteForceDemo {
                     <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: stretch; justify-content: space-between;">
                         
                         <!-- CONFIGURATION PANEL -->
-                        <div class="panel" style="flex: 1.1; min-width: 300px; background: #060607; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
+                        <div class="panel bf-config-panel" style="flex: 1.1; min-width: 300px; background: #060607; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
                             
                             <div>
                                 <h3 style="font-size: 0.9rem; font-weight: bold; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent-taupe); margin-bottom: 1.2rem;">
@@ -84,7 +84,7 @@ class BruteForceDemo {
                         </div>
 
                         <!-- TERMINAL DISPLAY & STATISTICS -->
-                        <div class="panel" style="flex: 1.4; min-width: 320px; background: #060607; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div class="panel bf-terminal-panel" style="flex: 1.4; min-width: 320px; background: #060607; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;">
                             
                             <!-- CPU grid / stats -->
                             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-family: 'Fira Code', monospace; font-size: 0.75rem;">

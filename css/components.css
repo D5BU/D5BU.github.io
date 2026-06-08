@@ -155,15 +155,25 @@
     font-weight: 500;
     text-transform: uppercase;
     color: var(--text-secondary);
-    transition: color 0.3s;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
 }
 
 .mobile-menu.open .mobile-menu-links a {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Premium Staggered Entry Animation for Mobile Menu Links */
+.mobile-menu.open .mobile-menu-links a:nth-child(1) { transition-delay: 0.05s; }
+.mobile-menu.open .mobile-menu-links a:nth-child(2) { transition-delay: 0.10s; }
+.mobile-menu.open .mobile-menu-links a:nth-child(3) { transition-delay: 0.15s; }
+.mobile-menu.open .mobile-menu-links a:nth-child(4) { transition-delay: 0.20s; }
+.mobile-menu.open .mobile-menu-links a:nth-child(5) { transition-delay: 0.25s; }
+.mobile-menu.open .mobile-menu-links a:nth-child(6) { transition-delay: 0.30s; }
+.mobile-menu.open .mobile-menu-links a:nth-child(7) { transition-delay: 0.35s; }
+.mobile-menu.open .mobile-menu-links a:nth-child(8) { transition-delay: 0.40s; }
 
 .mobile-menu-links a:hover {
     color: var(--accent-coral);
@@ -1580,7 +1590,7 @@
 /* --- CERTIFICATIONS SECTION --- */
 .certs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 24px;
 }
 
@@ -1729,5 +1739,45 @@
 
 .cert-verify-btn:hover svg {
     transform: translate(2px, -2px);
+}
+
+/* --- PHONE SPECIFIC RESPONSIVE OVERRIDES --- */
+@media (max-width: 768px) {
+    .osi-panel-left, .osi-panel-right,
+    .lg-canvas-panel, .lg-info-panel,
+    .bf-config-panel, .bf-terminal-panel {
+        min-width: 100% !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .osi-grid {
+        grid-template-columns: 1.2fr 0.6fr 1.2fr !important;
+        gap: 4px !important;
+    }
+    .osi-layer-node {
+        padding: 0 4px !important;
+        height: 36px !important;
+    }
+    .osi-layer-node span {
+        font-size: 8.5px !important;
+    }
+    .osi-layer-node small {
+        font-size: 7px !important;
+    }
+    #visualizer-container {
+        gap: 1.5px !important;
+        padding: 1rem 0.5rem !important;
+    }
+    .certs-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #ai-chat-window {
+        max-height: calc(100vh - 120px) !important;
+    }
 }
 

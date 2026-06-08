@@ -20,7 +20,7 @@ class LogicGates {
                     <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: stretch; justify-content: space-between;">
                         
                         <!-- SVG CIRCUIT CANVAS -->
-                        <div class="panel" style="flex: 1.4; min-width: 320px; background: #060607; border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-sm); padding: 1.5rem; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;">
+                        <div class="panel lg-canvas-panel" style="flex: 1.4; min-width: 320px; background: #060607; border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-sm); padding: 1.5rem; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;">
                             
                             <!-- Scanner line effect for aesthetic depth -->
                             <div style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 4px, 3px 100%;"></div>
@@ -108,7 +108,7 @@ class LogicGates {
                         </div>
 
                         <!-- TRUTH TABLE & INFORMATION -->
-                        <div class="panel" style="flex: 1; min-width: 260px; background: #060607; border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-sm); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div class="panel lg-info-panel" style="flex: 1; min-width: 260px; background: #060607; border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-sm); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
                             <div>
                                 <h3 style="font-size: 0.9rem; font-weight: bold; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent-taupe); margin-bottom: 1rem; border-bottom: 1px solid rgba(183,171,152,0.1); padding-bottom: 6px;">
                                     Boolean Truth Table
