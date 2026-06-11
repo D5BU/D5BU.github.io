@@ -628,6 +628,47 @@ class App {
                     </div>
                 </div>
             `;
+        } else if (projectTitle === 'FateOS') {
+            contentHtml = `
+                <div class="panel" style="display:flex; flex-direction:column; gap:20px; text-align:left;">
+                    <div class="badge-tag" style="width:fit-content; border-color:var(--accent-coral); color:var(--accent-coral);">Operating System / Linux Kernel</div>
+                    <p style="font-size:1.1rem; line-height:1.7; color:var(--text-primary);">
+                        <strong>FateOS</strong> is an ultra-lightweight, custom RAM-disk Linux distribution built from the ground up to understand bootstrap initialization, userspace assembly, and system call boundaries.
+                    </p>
+                    <h3 style="text-transform:uppercase; font-size:16px; color:var(--accent-taupe); border-bottom:1px solid var(--border-low-opacity); padding-bottom:8px; margin-top:5px;">Key Engineering Implementations</h3>
+                    <ul style="list-style:disc; padding-left:20px; color:var(--text-secondary); display:flex; flex-direction:column; gap:12px; font-size:14px; line-height:1.6;">
+                        <li><strong>Custom PID 1 Init Process:</strong> Wrote \`/init\` shell logic to handle kernel mounts (\`/proc\`, \`/sys\`, \`/dev\`, \`/dev/pts\`), attach active devices via \`cttyhack\`, and manage interactive session control with a custom crash recovery loop.</li>
+                        <li><strong>Statically Linked Userspace:</strong> Configured and compiled a standalone, static \`BusyBox\` executable with GCC, bundling 300+ standard UNIX utilities into a self-contained 2MB library-free binary.</li>
+                        <li><strong>RAM File System Archive:</strong> Engineered directory structures and created compressed \`initramfs.cpio.gz\` archives in the standard SVR4 portable format (\`newc\`).</li>
+                        <li><strong>Emulated Hardware Booting:</strong> Configured direct kernel execution parameters (\`vmlinuz\`) with QEMU, routing all system logs directly to serial terminal outputs (\`console=ttyS0\`) for instant boot speeds (&lt; 0.2s).</li>
+                    </ul>
+                    <h3 style="text-transform:uppercase; font-size:16px; color:var(--accent-taupe); border-bottom:1px solid var(--border-low-opacity); padding-bottom:8px; margin-top:10px;">QEMU Boot Sequence Log</h3>
+                    <div style="background:rgba(0,0,0,0.4); border:1px solid var(--border-color); border-radius:6px; padding:20px; font-family:'Fira Code', monospace; font-size:12px; color:var(--text-primary); line-height:1.6;">
+                        <div style="color:#00FF66;">[   0.000000] Linux version 6.1.0-21-amd64 (Debian) ...</div>
+                        <div style="color:#00FF66;">[   0.124891] Freeing unused kernel image memory: 3120K</div>
+                        <div style="color:#00FF66;">[   0.145920] Run /init as init process</div>
+                        <div style="color:var(--text-accent);">Mounting /proc and /sys filesystems...</div>
+                        <div style="color:var(--text-accent);">Mounting devtmpfs on /dev...</div>
+                        <div style="color:var(--text-accent);">Starting shell session via cttyhack...</div>
+                        <div style="padding-left:15px; color:#ffffff; font-weight:bold; margin-top:8px;">
+=============================================<br>
+  D5BU-FateOS V1 (Ultra-Lightweight Edition) <br>
+  Kernel: 6.1.0-21-amd64                     <br>
+=============================================<br>
+                        </div>
+                        <div style="color:#00FF66; margin-top:8px;">/ # uname -a</div>
+                        <div style="color:#ffffff;">Linux FateOS 6.1.0-21-amd64 #1 SMP PREEMPT_DYNAMIC x86_64 GNU/Linux</div>
+                    </div>
+                    <div style="margin-top:15px; display:flex; justify-content:flex-start;">
+                        <a href="https://github.com/D5BU/D5BU-FateOS" target="_blank" rel="noopener noreferrer" class="btn-pill" style="display:inline-flex; align-items:center; gap:8px; text-decoration:none;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                            </svg>
+                            <span>View on GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            `;
         } else {
             contentHtml = `
                 <div class="panel" style="display:flex; flex-direction:column; gap:20px; text-align:left;">
