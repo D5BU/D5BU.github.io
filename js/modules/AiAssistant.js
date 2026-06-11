@@ -124,7 +124,8 @@ class AiAssistant {
                    "• **D5BU Shield:** A security command dashboard that maps local subnets (host/port scanning) and hosts an LSB image steganography lab.\n" +
                    "• **SafeDelete Desktop:** A native disk forensics utility built to overwrite storage blocks using DoD standards and calculate Shannon entropy.\n" +
                    "• **AuditiAutomate:** A Python/Boto3 AWS pipeline that automatically audits credentials and access key ages, pruning risk exposure by 70%.\n" +
-                   "• **PhishGuard:** An interactive training simulation for analyzing email headers (SPF, DKIM, DMARC alignment) and homograph URL attacks.\n\n" +
+                   "• **PhishGuard:** An interactive training simulation for analyzing email headers (SPF, DKIM, DMARC alignment) and homograph URL attacks.\n" +
+                   "• **FateOS:** A custom, RAM-disk Linux distribution compiled and built from scratch to explore OS boot processes and BusyBox userspace execution.\n\n" +
                    "Which project would you like to explore in detail?";
         }
         
@@ -146,6 +147,10 @@ class AiAssistant {
         
         if (contains(["phish", "phishguard", "email"])) {
             return "**PhishGuard** is an interactive simulation suite built to train teams on auditing raw email header configurations (SPF, DKIM, DMARC alignments) and identifying homograph spoof attacks. View the repository: https://github.com/D5BU/PhishGuard";
+        }
+
+        if (contains(["fateos", "fate", "fate-os", "operating system"])) {
+            return "**FateOS** is an ultra-lightweight, custom RAM-disk Linux distribution built from scratch to explore bootloaders, BusyBox userspace, kernel loading, and QEMU hardware emulation. View the repository: https://github.com/D5BU/D5BU-FateOS";
         }
 
         if (contains(["cert", "credential", "aws", "security+", "comptia", "terraform"])) {
@@ -184,7 +189,7 @@ class AiAssistant {
 
         if (contains(["help", "what can you do", "commands"])) {
             return "I can answer questions regarding:\n\n" +
-                   "• Shubham's **projects** (JusticeGPT, D5BU Shield, SafeDelete, AuditiAutomate, PhishGuard)\n" +
+                   "• Shubham's **projects** (JusticeGPT, D5BU Shield, SafeDelete, AuditiAutomate, PhishGuard, FateOS)\n" +
                    "• His **certifications** (AWS Solutions Architect, Security+, Terraform)\n" +
                    "• His **skills** and technical **arsenal**\n" +
                    "• His **education** and academic background\n" +
